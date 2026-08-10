@@ -46,7 +46,7 @@ export function Hero() {
       {/* Optional subtle gradient to fade out the top/bottom edges */}
       <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_var(--tw-gradient-stops))] from-transparent via-background/20 to-background pointer-events-none"></div>
 
-      <div className="relative z-10 w-full flex flex-col items-center">
+      <div className="relative z-10 flex w-full flex-col items-center sm:pb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
