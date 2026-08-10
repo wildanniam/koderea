@@ -1,0 +1,74 @@
+schema: spec-driven
+
+context: |
+  Project: Koderea official company homepage.
+  State: Greenfield; no website code or production design system exists yet.
+  Delivery mode: Rapid prototype for a real company, followed by fast brand and content iterations.
+  Artifact language: English. Public website copy MUST be English.
+
+  Product positioning:
+  - Koderea is an AI Advisory & Solutions Provider based in Indonesia.
+  - AI Assurance & Validation is the strategic flagship and primary brand differentiator.
+  - AI Consulting & Strategy supports organizational readiness and adoption.
+  - Koderea Academy is the current near-term commercial focus and talent-development path.
+  - AI Software Solutions is a longer-term capability.
+  - Assurance independence and evidence-based claims are core principles.
+
+  Source precedence:
+  1. Explicit product decisions captured in the active discussion and change design.
+  2. Company Profile for positioning, maturity, independence, and target clients.
+  3. Homepage PRD for functional behavior, integrations, NFRs, and future hooks.
+  4. Reference sites and libraries for inspiration only.
+
+  Approved experience direction:
+  - Company-first homepage; never a course-first hero.
+  - Light-mode, modern, minimal, content-led, and spacious.
+  - One dominant message and at most one focal asset or interaction per viewport.
+  - Modern sans-serif typography and one provisional accent color; exact font and color remain open.
+  - Motion.dev owns React state transitions; GSAP owns one signature scroll narrative.
+  - A signature visual is approved only after its asset or ready-made component source is identified.
+  - Custom 3D/WebGL/asset engineering from scratch is outside the rapid-prototype scope; audited
+    ready-made components remain possible when they fit the selected visual direction.
+  - Lucide and lucide-animated are the only general-purpose icon family; no emoji.
+  - No unverified clients, partners, metrics, testimonials, results, or product screenshots.
+  - No generated concept image is an active visual baseline until the user explicitly approves it.
+
+  Technical direction:
+  - React/Next.js, TypeScript, and Tailwind CSS are the intended frontend foundation.
+  - Reuse selected accessible primitives and behavior patterns from faiz-ui-app, not its marketing
+    composition, copy, remote assets, dashboards, or proof.
+  - Motion, GSAP with @gsap/react, and selected registry components must have clear ownership.
+  - The prototype must remain modular for future Academy, event API, and lead-service integration.
+
+rules:
+  proposal:
+    - State the business outcome, user outcome, scope, non-scope, and affected capabilities.
+    - Identify conflicts with existing sources and record how each conflict is resolved.
+    - Never present provisional branding, content, integrations, or maturity claims as final.
+  specs:
+    - Use RFC 2119 keywords such as SHALL, MUST, SHOULD, and MAY.
+    - Express every observable requirement with at least one Given/When/Then-style scenario.
+    - Separate business truth, user-visible behavior, and implementation constraints.
+    - Include mobile, keyboard, reduced-motion, empty, and failure behavior where relevant.
+    - Prohibit fabricated social proof and unsupported service-readiness claims.
+  design:
+    - Record locked decisions, provisional decisions, and open questions separately.
+    - Assign each animated property and DOM node to one animation owner.
+    - Explain performance, accessibility, responsive behavior, and fallback behavior.
+    - Prefer simple, reversible architecture for prototype-stage decisions.
+  tasks:
+    - Group work by delivery phase and use hierarchically numbered checkbox items.
+    - Keep each task small enough to verify within one focused implementation session.
+    - Include content verification, accessibility, reduced motion, responsive QA, and performance checks.
+    - Do not mark implementation or verification tasks complete without evidence.
+
+operations:
+  apply:
+    guidance:
+      - Implement the smallest complete vertical slice before adding signature motion.
+      - Preserve readable static content before enabling animation or decorative effects.
+      - Run focused verification after each implementation group.
+  archive:
+    guidance:
+      - Archive only after required tasks and strict OpenSpec validation pass.
+      - Summarize unresolved follow-up work instead of silently dropping it.
