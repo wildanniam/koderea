@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRightIcon } from "@/components/ui/arrow-right";
+import { MouseIcon } from "@/components/ui/mouse";
 import { WavesBackground } from "./WavesBackground";
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-12 text-center md:px-12 lg:px-24 overflow-hidden">
       {/* Abstract Background Animation */}
@@ -60,6 +63,24 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
+
+      <motion.a
+        href="#company-intro"
+        aria-label="Scroll to learn about Koderea"
+        animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : { duration: 1.8, ease: "easeInOut", repeat: Infinity }
+        }
+        className="absolute bottom-7 left-6 z-10 hidden rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:block md:left-12 lg:left-24"
+      >
+        <MouseIcon
+          aria-hidden="true"
+          size={42}
+          className={shouldReduceMotion ? "pointer-events-none" : undefined}
+        />
+      </motion.a>
     </section>
   );
 }

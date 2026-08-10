@@ -79,6 +79,7 @@ export function CompanyIntro() {
 
   return (
     <section
+      id="company-intro"
       ref={containerRef}
       className="relative border-y border-black/5 bg-white lg:motion-safe:min-h-[200svh]"
     >
