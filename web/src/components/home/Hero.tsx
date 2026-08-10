@@ -6,30 +6,41 @@ import LightRays from "@/components/LightRays";
 import { ArrowRightIcon } from "@/components/ui/arrow-right";
 import { MouseIcon } from "@/components/ui/mouse";
 
+const LIGHT_RAYS_MASK =
+  "radial-gradient(ellipse 42% 58% at 50% 50%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.28) 46%, rgba(0, 0, 0, 0.78) 76%, #000 100%)";
+
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-12 text-center md:px-12 lg:px-24 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        {shouldReduceMotion ? (
-          <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(79,70,229,0.12),_transparent_65%)]" />
-        ) : (
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#5B5BD6"
-            raysSpeed={0.28}
-            lightSpread={0.75}
-            rayLength={2}
-            fadeDistance={1.05}
-            saturation={0.85}
-            followMouse
-            mouseInfluence={0.35}
-            noiseAmount={0.025}
-            distortion={0.025}
-            className="opacity-40 mix-blend-multiply"
-          />
-        )}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+      >
+        <div
+          className="h-full w-full"
+          style={{ maskImage: LIGHT_RAYS_MASK, WebkitMaskImage: LIGHT_RAYS_MASK }}
+        >
+          {shouldReduceMotion ? (
+            <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(79,70,229,0.12),_transparent_65%)]" />
+          ) : (
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#5B5BD6"
+              raysSpeed={0.28}
+              lightSpread={0.75}
+              rayLength={2}
+              fadeDistance={1.05}
+              saturation={0.85}
+              followMouse
+              mouseInfluence={0.35}
+              noiseAmount={0.025}
+              distortion={0.025}
+              className="opacity-40 mix-blend-multiply"
+            />
+          )}
+        </div>
       </div>
 
       {/* Optional subtle gradient to fade out the top/bottom edges */}
@@ -44,7 +55,7 @@ export function Hero() {
         >
           <h1 className="text-5xl md:text-7xl lg:text-[80px] font-semibold tracking-tight text-foreground leading-[1.05] mb-8">
             Trust through assurance.<br />
-            <span className="text-muted">Accelerate your AI.</span>
+            <span className="text-[#4f4f4f]">Accelerate your AI.</span>
           </h1>
         </motion.div>
 
