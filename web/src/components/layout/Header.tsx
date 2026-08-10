@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { ArrowUpRightIcon } from "@/components/ui/arrow-up-right";
 import { MenuIcon } from "@/components/ui/menu";
 import { XIcon } from "@/components/ui/x";
@@ -15,8 +15,15 @@ const navigation = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const hasSurface = isScrolled || isMobileMenuOpen;
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 24);
+  });
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -33,7 +40,11 @@ export function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       onKeyDown={handleKeyDown}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 md:px-12 lg:px-24 bg-background/80 backdrop-blur-md border-b border-black/5"
+      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b px-6 py-5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 md:px-12 lg:px-24 ${
+        hasSurface
+          ? "border-black/5 bg-background/85 shadow-[0_8px_30px_rgba(0,0,0,0.035)] backdrop-blur-xl"
+          : "border-transparent bg-transparent shadow-none backdrop-blur-none"
+      }`}
     >
       <div className="flex items-center gap-8">
         <Link href="/" onClick={closeMobileMenu} className="text-xl font-bold tracking-tight">

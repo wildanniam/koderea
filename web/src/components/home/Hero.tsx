@@ -1,17 +1,38 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import LightRays from "@/components/LightRays";
 import { ArrowRightIcon } from "@/components/ui/arrow-right";
-import { WavesBackground } from "./WavesBackground";
+import { MouseIcon } from "@/components/ui/mouse";
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-12 text-center md:px-12 lg:px-24 overflow-hidden">
-      {/* Abstract Background Animation */}
-      <WavesBackground />
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        {shouldReduceMotion ? (
+          <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(79,70,229,0.12),_transparent_65%)]" />
+        ) : (
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#5B5BD6"
+            raysSpeed={0.28}
+            lightSpread={0.75}
+            rayLength={2}
+            fadeDistance={1.05}
+            saturation={0.85}
+            followMouse
+            mouseInfluence={0.35}
+            noiseAmount={0.025}
+            distortion={0.025}
+            className="opacity-40 mix-blend-multiply"
+          />
+        )}
+      </div>
 
-      {/* Optional subtle gradient to fade out the top/bottom edges of the waves */}
+      {/* Optional subtle gradient to fade out the top/bottom edges */}
       <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_var(--tw-gradient-stops))] from-transparent via-background/20 to-background pointer-events-none"></div>
 
       <div className="relative z-10 w-full flex flex-col items-center">
@@ -59,6 +80,26 @@ export function Hero() {
             <ArrowRightIcon aria-hidden="true" size={16} className="motion-reduce:pointer-events-none" />
           </a>
         </motion.div>
+      </div>
+
+      <div className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 sm:block">
+        <motion.a
+          href="#company-intro"
+          aria-label="Scroll to learn about Koderea"
+          animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
+          transition={
+            shouldReduceMotion
+              ? undefined
+              : { duration: 1.8, ease: "easeInOut", repeat: Infinity }
+          }
+          className="block rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+        >
+          <MouseIcon
+            aria-hidden="true"
+            size={42}
+            className={shouldReduceMotion ? "pointer-events-none" : undefined}
+          />
+        </motion.a>
       </div>
     </section>
   );

@@ -9,6 +9,7 @@
 
 # Local tooling
 .vercel/
+web/.playwright-cli/
 
 # Web application output
 web/node_modules/
