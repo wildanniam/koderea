@@ -23,11 +23,11 @@ export function Hero() {
           style={{ maskImage: LIGHT_RAYS_MASK, WebkitMaskImage: LIGHT_RAYS_MASK }}
         >
           {shouldReduceMotion ? (
-            <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(79,70,229,0.12),_transparent_65%)]" />
+            <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(122,134,153,0.18),_transparent_65%)]" />
           ) : (
             <LightRays
               raysOrigin="top-center"
-              raysColor="#5B5BD6"
+              raysColor="#7A8699"
               raysSpeed={0.28}
               lightSpread={0.75}
               rayLength={2}
@@ -48,24 +48,24 @@ export function Hero() {
 
       <div className="relative z-10 flex w-full flex-col items-center sm:pb-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-[80px] font-semibold tracking-tight text-foreground leading-[1.05] mb-8">
+          <h1 className="mb-8 text-5xl font-semibold leading-none tracking-[-0.02em] text-foreground md:text-7xl lg:text-[80px]">
             Trust through assurance.<br />
-            <span className="text-[#4f4f4f]">Accelerate your AI.</span>
+            <span className="text-slate-500">Accelerate your AI.</span>
           </h1>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           className="max-w-2xl mx-auto"
         >
-          <p className="text-lg md:text-xl text-muted font-normal leading-relaxed mb-12">
+          <p className="mb-12 text-lg font-normal leading-[1.3] text-muted md:text-xl">
             Koderea helps organizations adopt AI with evidence, clarity, and local context.
             We provide expert third-party validation, risk assessment, and compliance framework advisory for critical AI systems in Indonesia.
           </p>
@@ -85,7 +85,7 @@ export function Hero() {
           </a>
           <a
             href="#academy"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-white/50 backdrop-blur-sm px-8 text-sm font-medium text-foreground transition-colors hover:bg-black/5 hover:border-black/20"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-slate-100 bg-paper/65 backdrop-blur-sm px-8 text-sm font-medium text-foreground transition-colors hover:border-slate-300 hover:bg-slate-100/50"
           >
             View Academy
             <ArrowRightIcon aria-hidden="true" size={16} className="motion-reduce:pointer-events-none" />

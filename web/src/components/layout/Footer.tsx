@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -13,7 +14,13 @@ export function Footer() {
     <footer className="bg-foreground text-white/60 py-12 px-6 md:px-12 lg:px-24 border-t border-white/10">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         <div>
-          <div className="text-xl font-bold tracking-tight text-white mb-2">KODEREA</div>
+          <Image
+            src="/brand/logo-koderea.svg"
+            alt="Koderea"
+            width={191}
+            height={48}
+            className="mb-3 h-9 w-auto brightness-0 invert"
+          />
           <p className="text-sm">AI Advisory & Solutions Provider</p>
         </div>
 

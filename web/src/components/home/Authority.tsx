@@ -40,10 +40,10 @@ export function Authority() {
           transition={shouldReduceMotion ? { duration: 0 } : undefined}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">
+          <h2 className="mb-4 text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3.5rem]">
             Authority & Methodology
           </h2>
-          <p className="text-xl text-muted max-w-2xl">
+          <p className="max-w-2xl text-xl leading-[1.3] text-muted">
             We don’t just implement technology. We establish the governance, capability, and validation frameworks required for sustainable AI.
           </p>
         </motion.div>
@@ -61,7 +61,7 @@ export function Authority() {
                 if (!shouldReduceMotion) iconRefs.current[idx]?.startAnimation();
               }}
               onHoverEnd={() => iconRefs.current[idx]?.stopAnimation()}
-              className="group relative flex min-h-72 flex-col overflow-hidden rounded-3xl border border-black/[0.07] bg-white p-7 shadow-[0_1px_2px_rgba(17,17,17,0.03)] transition-[border-color,box-shadow] duration-500 hover:border-black/15 hover:shadow-[0_24px_60px_rgba(17,17,17,0.09)] md:p-8"
+              className="group relative flex min-h-72 flex-col overflow-hidden rounded-3xl border border-slate-100 bg-paper p-7 shadow-[0_1px_2px_rgba(30,37,48,0.03)] transition-[border-color,box-shadow] duration-500 hover:border-slate-300 hover:shadow-[0_24px_60px_rgba(30,37,48,0.09)] md:p-8"
             >
               <div className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-foreground transition-transform duration-500 group-hover:scale-x-100" />
               <div className="mb-12 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-light text-foreground transition-colors duration-500 group-hover:bg-foreground group-hover:text-background">
@@ -75,8 +75,8 @@ export function Authority() {
                 />
               </div>
               <div className="mt-auto">
-                <h3 className="text-xl font-semibold tracking-tight text-foreground">{item.title}</h3>
-                <p className="mt-4 leading-relaxed text-muted">{item.desc}</p>
+                <h3 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-foreground">{item.title}</h3>
+                <p className="mt-4 leading-[1.3] text-muted">{item.desc}</p>
               </div>
             </motion.article>
           ))}
