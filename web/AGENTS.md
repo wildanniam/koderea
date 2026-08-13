@@ -26,3 +26,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Homepage icons come from the local Lucide Animated registry components in `src/components/ui`.
   Trigger icon motion from the parent card or control when the full surface is interactive, and
   disable hover-triggered icon motion for `prefers-reduced-motion`.
+
+## Koderea brand foundations
+
+- Use Rethink Sans through `next/font/google` and the `--font-rethink-sans` variable.
+- The approved neutral scale is Carbon `#0C0F12`, Slate 900 `#111418`, Slate 700 `#1E2530`,
+  Slate 500 `#3A4455`, Slate 300 `#7A8699`, and Slate 100 `#E2E7EF`.
+- Official logo files live in `public/brand`; do not reconstruct the wordmark with text.
+- Homepage assurance artwork lives in `public/assurance` and comes from the approved Figma bento exports.

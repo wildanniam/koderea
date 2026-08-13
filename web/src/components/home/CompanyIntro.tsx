@@ -81,7 +81,7 @@ export function CompanyIntro() {
     <section
       id="company-intro"
       ref={containerRef}
-      className="relative border-y border-black/5 bg-white lg:motion-safe:min-h-[200svh]"
+      className="relative border-y border-slate-100 bg-paper lg:motion-safe:min-h-[200svh]"
     >
       <div className="flex items-center px-6 py-24 md:px-12 lg:motion-safe:sticky lg:motion-safe:top-0 lg:motion-safe:min-h-svh lg:motion-safe:py-24 lg:px-24">
         <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-24">
@@ -97,7 +97,7 @@ export function CompanyIntro() {
           </p>
 
           <figure className="w-full max-w-64 justify-self-start lg:max-w-none lg:justify-self-end">
-            <div className="overflow-hidden rounded-2xl bg-neutral-100">
+            <div className="overflow-hidden rounded-2xl bg-slate-100">
               <Image
                 src="/images/thomhert-siadari.webp"
                 alt="Thomhert Suprapto Siadari, CEO of Koderea"
@@ -107,7 +107,7 @@ export function CompanyIntro() {
                 className="aspect-square h-auto w-full object-cover"
               />
             </div>
-            <figcaption className="mt-5 border-t border-black/10 pt-4">
+            <figcaption className="mt-5 border-t border-slate-100 pt-4">
               <a
                 href="https://www.linkedin.com/in/thomhertsiadari/"
                 target="_blank"

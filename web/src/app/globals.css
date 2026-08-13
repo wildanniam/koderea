@@ -1,20 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdfdfd;
-  --foreground: #111111;
-  --muted: #666666;
-  --accent: #4B5563;
-  --accent-light: #f3f4f6;
+  --carbon: #0c0f12;
+  --slate-900: #111418;
+  --slate-700: #1e2530;
+  --slate-500: #3a4455;
+  --slate-300: #7a8699;
+  --slate-100: #e2e7ef;
+  --paper: #fdfdfd;
+  --surface: #f7f7f7;
+  --background: var(--paper);
+  --foreground: var(--carbon);
+  --muted: var(--slate-500);
+  --accent: var(--slate-700);
+  --accent-light: var(--slate-100);
 }
 
 @theme inline {
+  --color-carbon: var(--carbon);
+  --color-slate-900: var(--slate-900);
+  --color-slate-700: var(--slate-700);
+  --color-slate-500: var(--slate-500);
+  --color-slate-300: var(--slate-300);
+  --color-slate-100: var(--slate-100);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-rethink-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
@@ -27,6 +43,16 @@ body {
 
 html {
   scroll-padding-top: 6rem;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 @media (prefers-reduced-motion: no-preference) {

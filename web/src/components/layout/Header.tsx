@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { ArrowUpRightIcon } from "@/components/ui/arrow-up-right";
@@ -42,13 +43,25 @@ export function Header() {
       onKeyDown={handleKeyDown}
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b px-6 py-5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 md:px-12 lg:px-24 ${
         hasSurface
-          ? "border-black/5 bg-background/85 shadow-[0_8px_30px_rgba(0,0,0,0.035)] backdrop-blur-xl"
+          ? "border-slate-100/80 bg-background/88 shadow-[0_8px_30px_rgba(12,15,18,0.04)] backdrop-blur-xl"
           : "border-transparent bg-transparent shadow-none backdrop-blur-none"
       }`}
     >
       <div className="flex items-center gap-8">
-        <Link href="/" onClick={closeMobileMenu} className="text-xl font-bold tracking-tight">
-          KODEREA
+        <Link
+          href="/"
+          onClick={closeMobileMenu}
+          aria-label="Koderea home"
+          className="inline-flex shrink-0 items-center"
+        >
+          <Image
+            src="/brand/logo-koderea.svg"
+            alt="Koderea"
+            width={191}
+            height={48}
+            priority
+            className="h-8 w-auto md:h-9"
+          />
         </Link>
         <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-6 text-sm font-medium text-muted">
           {navigation.map((item) => (
@@ -68,7 +81,7 @@ export function Header() {
         </Link>
         <Link
           href="#contact"
-          className="hidden md:inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-black/20 hover:bg-accent-light"
+          className="hidden md:inline-flex items-center justify-center gap-2 rounded-full border border-slate-100 bg-paper px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-slate-300 hover:bg-accent-light"
         >
           Start a conversation
           <ArrowUpRightIcon aria-hidden="true" size={16} className={shouldReduceMotion ? "pointer-events-none" : undefined} />
@@ -80,7 +93,7 @@ export function Header() {
           aria-expanded={isMobileMenuOpen}
           aria-label={`${isMobileMenuOpen ? "Close" : "Open"} navigation menu`}
           onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-foreground transition-colors hover:border-black/20 hover:bg-accent-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-100 bg-paper text-foreground transition-colors hover:border-slate-300 hover:bg-accent-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground md:hidden"
         >
           {isMobileMenuOpen ? (
             <XIcon aria-hidden="true" size={20} className={shouldReduceMotion ? "pointer-events-none" : undefined} />
@@ -94,7 +107,7 @@ export function Header() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile primary navigation"
-          className="absolute inset-x-0 top-full border-b border-black/5 bg-background px-6 py-5 shadow-sm md:hidden"
+          className="absolute inset-x-0 top-full border-b border-slate-100 bg-background px-6 py-5 shadow-sm md:hidden"
         >
           <div className="mx-auto flex max-w-6xl flex-col gap-1">
             {navigation.map((item) => (
@@ -102,7 +115,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMobileMenu}
-                className="rounded-xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                className="rounded-xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-slate-100/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
               >
                 {item.label}
               </Link>

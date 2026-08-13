@@ -103,17 +103,17 @@ export function Capabilities() {
           transition={shouldReduceMotion ? { duration: 0 } : undefined}
           className="mb-16 md:mb-24"
         >
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">
+          <h2 className="mb-4 text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3.5rem]">
             Our Capabilities
           </h2>
-          <p className="text-xl text-muted max-w-2xl">
+          <p className="max-w-2xl text-xl leading-[1.3] text-muted">
             A comprehensive ecosystem designed to guide your organization from initial strategy to secure, validated deployment.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+        <div className="grid min-w-0 grid-cols-1 gap-12 xl:grid-cols-12 xl:gap-24">
           <LayoutGroup id="capability-tabs">
-            <div role="tablist" aria-label="Koderea capabilities" aria-orientation="vertical" className="lg:col-span-5 flex flex-col gap-2">
+            <div role="tablist" aria-label="Koderea capabilities" aria-orientation="vertical" className="flex flex-col gap-2 xl:col-span-5">
               {capabilities.map((cap, idx) => {
                 const isActive = activeTab === idx;
                 return (
@@ -130,16 +130,16 @@ export function Capabilities() {
                     tabIndex={isActive ? 0 : -1}
                     onClick={() => activateTab(idx)}
                     onKeyDown={(event) => handleTabKeyDown(event, idx)}
-                    className="relative isolate flex items-center gap-4 rounded-2xl border border-transparent p-4 text-left transition-colors duration-300 hover:bg-black/[0.035] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                    className="relative isolate flex items-center gap-4 rounded-2xl border border-transparent p-4 text-left transition-colors duration-300 hover:bg-slate-100/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                   >
                     {isActive && (
                       <motion.span
                         layoutId={shouldReduceMotion ? undefined : "capability-tab-highlight"}
-                        className="absolute inset-0 -z-10 rounded-2xl border border-black/5 bg-white shadow-sm"
+                        className="absolute inset-0 -z-10 rounded-2xl border border-slate-100 bg-paper shadow-sm"
                         transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 38, mass: 0.7 }}
                       />
                     )}
-                    <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-muted">
+                    <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-paper text-muted">
                       {isActive && (
                         <motion.span
                           layoutId={shouldReduceMotion ? undefined : "capability-icon-highlight"}
@@ -162,8 +162,8 @@ export function Capabilities() {
             </div>
           </LayoutGroup>
 
-          <div className="lg:col-span-7 flex items-center">
-            <div className="w-full overflow-hidden rounded-3xl border border-black/5 bg-white p-8 shadow-sm focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-foreground md:min-h-[32rem] md:p-12">
+          <div className="flex min-w-0 items-center xl:col-span-7">
+            <div className="w-full overflow-hidden rounded-3xl border border-slate-100 bg-paper p-8 shadow-sm focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-foreground md:min-h-[32rem] md:p-12">
               <AnimatePresence mode="popLayout" initial={false} custom={direction}>
                 <motion.div
                   key={activeTab}
@@ -186,15 +186,15 @@ export function Capabilities() {
                       className: shouldReduceMotion ? "pointer-events-none" : undefined,
                     })}
                   </div>
-                  <h3 className="mb-6 text-3xl font-semibold text-foreground">
+                  <h3 className="mb-6 text-3xl font-semibold leading-[1.2] tracking-[-0.01em] text-foreground">
                     {capabilities[activeTab].title}
                   </h3>
-                  <p className="mb-8 text-xl leading-relaxed text-muted">
+                  <p className="mb-8 text-xl leading-[1.3] text-muted">
                     {capabilities[activeTab].description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {capabilities[activeTab].tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-black/5 bg-background px-4 py-2 text-sm font-medium text-muted">
+                      <span key={tag} className="rounded-full border border-slate-100 bg-background px-4 py-2 text-sm font-medium text-muted">
                         {tag}
                       </span>
                     ))}

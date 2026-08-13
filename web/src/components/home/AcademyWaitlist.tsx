@@ -16,7 +16,7 @@ export function AcademyWaitlist() {
   };
 
   return (
-    <section id="academy" aria-labelledby="academy-heading" className="py-32 px-6 md:px-12 lg:px-24 bg-white border-t border-black/5">
+    <section id="academy" aria-labelledby="academy-heading" className="border-t border-slate-100 bg-paper px-6 py-32 md:px-12 lg:px-24">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
@@ -34,7 +34,7 @@ export function AcademyWaitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={shouldReduceMotion ? { duration: 0 } : undefined}
-          className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-6"
+          className="mb-6 text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3.5rem]"
         >
           Koderea Academy
         </motion.h2>
@@ -44,7 +44,7 @@ export function AcademyWaitlist() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
-          className="text-xl text-muted max-w-2xl mb-12"
+          className="mb-12 max-w-2xl text-xl leading-[1.3] text-muted"
         >
           Our practitioner-led curriculum is currently under development. Join the waitlist to be notified when our first cohorts on AI Engineering and Governance open for registration.
         </motion.p>
@@ -57,7 +57,7 @@ export function AcademyWaitlist() {
           className="w-full max-w-md"
         >
           {isSubmitted ? (
-            <div role="status" aria-live="polite" className="rounded-3xl border border-black/10 bg-background p-6 text-left">
+            <div role="status" aria-live="polite" className="rounded-3xl border border-slate-100 bg-background p-6 text-left">
               <p className="font-semibold text-foreground">Waitlist preview complete.</p>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 This demo form does not send or store your email. To register your interest now, contact{" "}
@@ -94,7 +94,7 @@ export function AcademyWaitlist() {
                   onChange={(event) => setEmail(event.target.value)}
                   aria-describedby="academy-form-note"
                   placeholder="you@company.com"
-                  className="h-12 min-w-0 flex-1 rounded-full border border-black/10 bg-background px-6 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:rounded-r-none"
+                  className="h-12 min-w-0 flex-1 rounded-full border border-slate-100 bg-background px-6 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:rounded-r-none"
                 />
                 <button
                   type="submit"
