@@ -48,9 +48,9 @@ export function Hero() {
 
       <div className="relative z-10 flex w-full flex-col items-center sm:pb-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           className="max-w-4xl mx-auto"
         >
           <h1 className="mb-8 text-5xl font-semibold leading-none tracking-[-0.02em] text-foreground md:text-7xl lg:text-[80px]">
@@ -60,9 +60,9 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           className="max-w-2xl mx-auto"
         >
           <p className="mb-12 text-lg font-normal leading-[1.3] text-muted md:text-xl">

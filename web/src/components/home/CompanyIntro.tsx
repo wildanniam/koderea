@@ -14,7 +14,7 @@ export function CompanyIntro() {
   const containerRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
 
-  const text = "Koderea is an AI Advisory & Solutions Provider based in Indonesia. We bridge the gap between AI ambition and production readiness through rigorous assurance, strategic consulting, and targeted capability building.";
+  const text = '"Koderea is an AI Advisory & Solutions Provider based in Indonesia. We bridge the gap between AI ambition and production readiness through rigorous assurance, strategic consulting, and targeted capability building."';
   const words = text.split(" ");
 
   useGSAP(() => {
