@@ -1,116 +1,202 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import LightRays from "@/components/LightRays";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useGSAP } from "@gsap/react";
 import { ArrowRightIcon } from "@/components/ui/arrow-right";
-import { MouseIcon } from "@/components/ui/mouse";
+import { HeroSignalField } from "@/components/home/HeroSignalField";
 
-const LIGHT_RAYS_MASK =
-  "radial-gradient(ellipse 42% 58% at 50% 50%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.28) 46%, rgba(0, 0, 0, 0.78) 76%, #000 100%)";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
+}
 
 export function Hero() {
+  const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
+  useGSAP((_, contextSafe) => {
+    const container = containerRef.current;
+    if (!container || !contextSafe) return;
+
+    const media = gsap.matchMedia();
+
+    media.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      let snapTween: gsap.core.Tween | null = null;
+      let hasSnapped = false;
+      let previousScrollY = window.scrollY;
+
+      const snapToCompanyIntro = contextSafe(() => {
+        const companyIntro = document.getElementById("company-intro");
+        if (!companyIntro || snapTween) return;
+
+        hasSnapped = true;
+
+        const clearSnapTween = () => {
+          snapTween = null;
+        };
+
+        snapTween = gsap.to(window, {
+          scrollTo: {
+            y: companyIntro,
+            autoKill: false,
+          },
+          duration: 0.62,
+          ease: "power3.inOut",
+          overwrite: "auto",
+          onComplete: clearSnapTween,
+          onInterrupt: clearSnapTween,
+        });
+      });
+
+      const timeline = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          id: "hero-depth-exit",
+          trigger: container,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      timeline
+        .to("[data-hero-content]", { yPercent: -12, scale: 0.9, opacity: 0.16 }, 0)
+        .to("[data-hero-horizon]", { yPercent: -34, scale: 1.12 }, 0)
+        .to("[data-hero-signals]", { scale: 1.48, rotation: 1.2, opacity: 0.2 }, 0)
+        .to("[data-hero-scroll-prompt]", { y: 36, opacity: 0 }, 0);
+
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        const heroTrigger = timeline.scrollTrigger;
+        const companyIntro = document.getElementById("company-intro");
+
+        if (!heroTrigger || !companyIntro) {
+          previousScrollY = currentScrollY;
+          return;
+        }
+
+        const isMovingUp = currentScrollY < previousScrollY - 2;
+        const isMovingDown = currentScrollY > previousScrollY;
+        const snapStart = heroTrigger.start + (heroTrigger.end - heroTrigger.start) * 0.9;
+        const isInTransitionZone =
+          currentScrollY >= snapStart && currentScrollY < companyIntro.offsetTop;
+
+        if (isMovingUp) {
+          hasSnapped = false;
+          snapTween?.kill();
+          snapTween = null;
+        } else if (!hasSnapped && isMovingDown && isInTransitionZone) {
+          snapToCompanyIntro();
+        }
+
+        previousScrollY = currentScrollY;
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        snapTween?.kill();
+      };
+    });
+
+    return () => media.revert();
+  }, { scope: containerRef });
+
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-12 text-center md:px-12 lg:px-24 overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-      >
+    <section
+      ref={containerRef}
+      className="relative min-h-svh bg-paper md:motion-safe:min-h-[155svh]"
+    >
+      <div className="relative flex min-h-svh overflow-hidden bg-paper px-6 pb-24 pt-32 text-center md:motion-safe:sticky md:motion-safe:top-0 md:px-10 md:pb-28 md:pt-36">
+        <HeroSignalField />
+
         <div
-          className="h-full w-full"
-          style={{ maskImage: LIGHT_RAYS_MASK, WebkitMaskImage: LIGHT_RAYS_MASK }}
-        >
-          {shouldReduceMotion ? (
-            <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(122,134,153,0.18),_transparent_65%)]" />
-          ) : (
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#7A8699"
-              raysSpeed={0.28}
-              lightSpread={0.75}
-              rayLength={2}
-              fadeDistance={1.05}
-              saturation={0.85}
-              followMouse
-              mouseInfluence={0.35}
-              noiseAmount={0.025}
-              distortion={0.025}
-              className="opacity-40 mix-blend-multiply"
-            />
-          )}
-        </div>
-      </div>
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_43%,rgba(253,253,253,0.92)_0%,rgba(253,253,253,0.72)_21%,rgba(253,253,253,0.12)_44%,transparent_66%)]"
+        />
 
-      {/* Optional subtle gradient to fade out the top/bottom edges */}
-      <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_var(--tw-gradient-stops))] from-transparent via-background/20 to-background pointer-events-none"></div>
-
-      <div className="relative z-10 flex w-full flex-col items-center sm:pb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="max-w-4xl mx-auto"
+        <div
+          aria-hidden="true"
+          data-hero-horizon
+          className="pointer-events-none absolute inset-x-0 bottom-[-7rem] z-[1] flex justify-center md:bottom-[-5rem]"
         >
-          <h1 className="mb-8 text-5xl font-semibold leading-none tracking-[-0.02em] text-foreground md:text-7xl lg:text-[80px]">
-            Trust through assurance.<br />
-            <span className="text-slate-500">Accelerate your AI.</span>
-          </h1>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="max-w-2xl mx-auto"
-        >
-          <p className="mb-12 text-lg font-normal leading-[1.3] text-muted md:text-xl">
-            Koderea helps organizations adopt AI with evidence, clarity, and local context.
-            We provide expert third-party validation, risk assessment, and compliance framework advisory for critical AI systems in Indonesia.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href="#capabilities"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-8 text-sm font-medium text-background transition-transform hover:scale-105"
-          >
-            Explore our capabilities
-          </a>
-          <a
-            href="#academy"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-slate-100 bg-paper/65 backdrop-blur-sm px-8 text-sm font-medium text-foreground transition-colors hover:border-slate-300 hover:bg-slate-100/50"
-          >
-            View Academy
-            <ArrowRightIcon aria-hidden="true" size={16} className="motion-reduce:pointer-events-none" />
-          </a>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 sm:block">
-        <motion.a
-          href="#company-intro"
-          aria-label="Scroll to learn about Koderea"
-          animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
-          transition={
-            shouldReduceMotion
-              ? undefined
-              : { duration: 1.8, ease: "easeInOut", repeat: Infinity }
-          }
-          className="block rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-        >
-          <MouseIcon
-            aria-hidden="true"
-            size={42}
-            className={shouldReduceMotion ? "pointer-events-none" : undefined}
+          <Image
+            src="/brand/hero-horizon.svg"
+            alt=""
+            width={1440}
+            height={357}
+            priority
+            sizes="100vw"
+            className="h-auto w-[max(100%,58rem)] max-w-none select-none"
           />
-        </motion.a>
+        </div>
+
+        <div
+          data-hero-content
+          className="relative z-10 mx-auto flex w-full max-w-[42rem] flex-col items-center self-center pb-24 md:pb-28"
+        >
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+          >
+            <h1 className="text-[clamp(3rem,5vw,4.25rem)] font-medium leading-[1.1] tracking-[-0.04em] text-[#1d1d1d]">
+              <span className="block">AI Claims are Easy.</span>
+              <span className="block">Evidence is Harder.</span>
+            </h1>
+          </motion.div>
+
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18, filter: "blur(7px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          >
+            <p className="mt-5 max-w-[33rem] text-base font-normal leading-[1.5] text-slate-700">
+              Koderea turns AI claims into validated evidence through independent testing,
+              local-context evaluation, and structured assurance.
+            </p>
+          </motion.div>
+
+          <motion.a
+            href="#contact"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
+            className="brand-button mt-7 inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-medium leading-[1.2] tracking-[-0.02em] text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700"
+          >
+            Start consultation
+          </motion.a>
+        </div>
+
+        <div
+          data-hero-scroll-prompt
+          className="absolute bottom-7 left-1/2 z-20 -translate-x-1/2 md:bottom-9"
+        >
+          <motion.a
+            href="#company-intro"
+            aria-label="See how Koderea works"
+            animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
+            transition={
+              shouldReduceMotion
+                ? undefined
+                : { duration: 1.8, ease: "easeInOut", repeat: Infinity }
+            }
+            className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm font-medium leading-[1.2] tracking-[-0.02em] text-[#1d1d1d] transition-colors hover:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700 md:text-base"
+          >
+            See how Koderea works
+            <ArrowRightIcon
+              aria-hidden="true"
+              size={20}
+              className={`rotate-90 ${shouldReduceMotion ? "pointer-events-none" : ""}`}
+            />
+          </motion.a>
+        </div>
       </div>
     </section>
   );
