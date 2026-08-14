@@ -84,10 +84,10 @@ export function CompanyIntro() {
       className="relative border-y border-slate-100 bg-paper lg:motion-safe:min-h-[200svh]"
     >
       <div className="flex items-center px-6 py-24 md:px-12 lg:motion-safe:sticky lg:motion-safe:top-0 lg:motion-safe:min-h-svh lg:motion-safe:py-24 lg:px-24">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-24">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center text-center">
           <p
             ref={textRef}
-            className="text-3xl font-medium leading-[1.3] tracking-tight text-foreground md:text-5xl lg:text-[48px] xl:text-[54px]"
+            className="text-3xl font-medium leading-[1.18] tracking-[-0.035em] text-foreground md:text-[2.5rem] lg:text-[2.625rem] xl:text-[2.75rem]"
           >
             {words.map((word, idx) => (
               <span key={idx} className="word mr-[0.25em] inline-block pb-2">
@@ -96,27 +96,29 @@ export function CompanyIntro() {
             ))}
           </p>
 
-          <figure className="w-full max-w-64 justify-self-start lg:max-w-none lg:justify-self-end">
-            <div className="overflow-hidden rounded-2xl bg-slate-100">
+          <figure className="mt-12 flex items-center gap-5 text-left md:mt-14 md:gap-6">
+            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-100 md:h-[4.5rem] md:w-[4.5rem]">
               <Image
                 src="/images/thomhert-siadari.webp"
                 alt="Thomhert Suprapto Siadari, CEO of Koderea"
                 width={512}
                 height={512}
-                sizes="(min-width: 1280px) 288px, (min-width: 1024px) 256px, 256px"
+                sizes="72px"
                 className="aspect-square h-auto w-full object-cover"
               />
             </div>
-            <figcaption className="mt-5 border-t border-slate-100 pt-4">
+            <figcaption>
+              <p className="text-sm font-normal leading-[1.3] text-slate-500 md:text-base">
+                CEO of Koderea
+              </p>
               <a
                 href="https://www.linkedin.com/in/thomhertsiadari/"
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-foreground underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+                className="mt-1.5 inline-block text-lg font-medium leading-[1.2] tracking-[-0.02em] text-foreground underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground md:text-xl"
               >
                 Thomhert Suprapto Siadari
               </a>
-              <p className="mt-1 text-sm text-muted">CEO, Koderea</p>
             </figcaption>
           </figure>
         </div>

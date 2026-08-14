@@ -17,13 +17,15 @@ Koderea's homepage is a brand-led company profile with commercial paths into ent
 
 - Navigation: transparent over the hero, then a lightly blurred paper surface after scroll.
 - Hero buttons: 12px radius, Rethink Sans Medium, 120% leading, -2% tracking, and the approved monochrome radial fill with an inset highlight. Large campaign buttons may use the 37px pill variant from Figma node `81:144`.
-- Cards: paper or soft surface fills, Slate 100 borders, restrained shadows, and moderate radii.
+- Cards: paper or soft surface fills, restrained shadows, and moderate radii. Borders are optional framing, not a hover treatment; prefer elevation and small transforms for interactive emphasis.
 - Forms: light surfaces, explicit labels, native validation, and clear success/disclosure copy.
 
 ## Motion
 
 - The hero uses a lightweight monochrome radial signal field above the approved horizon artwork; the assurance horizontal scroll remains the second signature motion moment.
 - Hero signals are deterministic 2D CSS transforms. Do not replace them with Three.js, WebGL, or invented 3D assets.
+- The hero uses one short sticky GSAP ScrollTrigger beat on tablet/desktop: content recedes, the horizon rises, and signals expand outward with smoothed scrub. Use CSS sticky rather than ScrollTrigger pinning so the following section retains normal flow.
+- After the hero exit reaches 90% while scrolling forward, a short GSAP ScrollTo transition closes the remaining sticky spacer and lands on the company introduction. It must not trigger while scrolling upward, on mobile, or with reduced motion.
 - GSAP horizontal sections pin a dedicated viewport, animate a single track, and calculate travel from actual scroll width.
 - Mobile and reduced-motion modes expose all content vertically without pinning.
 - Ordinary hover and state feedback stays within 150–350ms and favors transform/opacity.

@@ -146,24 +146,24 @@ export function AssuranceNarrative() {
             {steps.map((step, idx) => (
               <article
                 key={step.title}
-                className="assurance-card group relative z-0 w-full shrink-0 overflow-hidden rounded-[1.25rem] border border-slate-100 bg-surface p-4 shadow-[0_20px_70px_rgba(30,37,48,0.07)] transition-[transform,border-color,background-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-3 motion-safe:hover:scale-[1.015] motion-safe:hover:border-slate-300 motion-safe:hover:bg-paper motion-safe:hover:shadow-[0_36px_90px_rgba(30,37,48,0.16)] md:w-[min(42vw,42rem)] md:p-5 md:motion-reduce:max-w-4xl md:motion-reduce:w-full"
+                className="assurance-card group relative z-0 w-full shrink-0 overflow-hidden rounded-[1.125rem] bg-paper p-3 shadow-[0_10px_38px_rgba(30,37,48,0.045)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.015] motion-safe:hover:shadow-[0_30px_72px_rgba(30,37,48,0.14)] md:w-[min(30vw,29rem)] md:p-3.5 md:motion-reduce:max-w-3xl md:motion-reduce:w-full"
               >
-                <div className="overflow-hidden rounded-2xl border border-slate-100 bg-[#f4f4f4] shadow-[0_1px_2px_rgba(30,37,48,0.02)] transition-[border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:border-slate-300 motion-safe:group-hover:shadow-[0_18px_44px_rgba(30,37,48,0.10)]">
+                <div className="overflow-hidden rounded-[0.875rem] bg-[#f4f4f4] shadow-[0_1px_2px_rgba(30,37,48,0.02)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:shadow-[0_16px_38px_rgba(30,37,48,0.09)]">
                   <Image
                     src={step.image}
                     alt=""
                     width={634}
                     height={391}
-                    sizes="(min-width: 768px) 42vw, calc(100vw - 4rem)"
-                    className="block h-auto w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-[1.025]"
+                    sizes="(min-width: 768px) 30vw, calc(100vw - 4rem)"
+                    className="block h-auto w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-[1.018]"
                   />
                 </div>
-                <div className="px-1 pb-1 pt-5">
-                  <h3 className="text-2xl font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 md:text-[1.75rem]">
+                <div className="px-1 pb-1 pt-4">
+                  <h3 className="text-2xl font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 md:text-2xl">
                     <span className="sr-only">Step {idx + 1}: </span>
                     {step.title}
                   </h3>
-                  <p className="mt-2 max-w-[40rem] text-base font-medium leading-[1.3] text-slate-500 md:text-xl">
+                  <p className="mt-2 max-w-[29rem] text-base font-medium leading-[1.3] text-slate-500">
                     {step.desc}
                   </p>
                 </div>

@@ -133,6 +133,13 @@ p {
   height: 2px;
 }
 
+[data-hero-content],
+[data-hero-horizon],
+[data-hero-signals],
+[data-hero-scroll-prompt] {
+  will-change: transform, opacity;
+}
+
 @keyframes hero-signal-flow {
   0% {
     opacity: 0;
@@ -175,6 +182,13 @@ p {
     animation: none !important;
     opacity: calc(var(--signal-opacity) * 0.45);
     transform: rotate(var(--signal-angle)) translateX(var(--signal-distance)) scaleX(0.8);
+    will-change: auto;
+  }
+
+  [data-hero-content],
+  [data-hero-horizon],
+  [data-hero-signals],
+  [data-hero-scroll-prompt] {
     will-change: auto;
   }
 }

@@ -24,6 +24,7 @@ export function HeroSignalField() {
   return (
     <div
       aria-hidden="true"
+      data-hero-signals
       className="hero-signal-field pointer-events-none absolute inset-0 z-[2] overflow-hidden"
     >
       {SIGNALS.map((signal, index) => {
