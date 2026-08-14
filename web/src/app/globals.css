@@ -55,6 +55,86 @@ p {
   text-wrap: pretty;
 }
 
+.brand-button {
+  background:
+    radial-gradient(
+      ellipse 92% 190% at 50% -118%,
+      #fafafa 0%,
+      #c3c3c3 25%,
+      #8c8c8c 50%,
+      #545454 75%,
+      #1d1d1d 100%
+    );
+  box-shadow:
+    0 12px 22px rgba(79, 79, 79, 0.15),
+    0 4px 8px rgba(79, 79, 79, 0.17),
+    inset 0 -4px 18px rgba(255, 255, 255, 0.25);
+  transition:
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-button:hover {
+  box-shadow:
+    0 16px 28px rgba(79, 79, 79, 0.2),
+    0 5px 10px rgba(79, 79, 79, 0.18),
+    inset 0 -4px 18px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.brand-button:active {
+  box-shadow:
+    0 7px 14px rgba(79, 79, 79, 0.15),
+    inset 0 -3px 14px rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
+}
+
+.hero-signal-field {
+  mask-image: radial-gradient(circle at 50% 57%, transparent 0 13%, #000 29%, #000 78%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at 50% 57%, transparent 0 13%, #000 29%, #000 78%, transparent 100%);
+}
+
+.hero-signal {
+  --signal-angle: 0deg;
+  --signal-delay: 0s;
+  --signal-distance: 10rem;
+  --signal-duration: 5s;
+  --signal-length: 24px;
+  --signal-opacity: 0.2;
+  --signal-travel: 8rem;
+  animation: hero-signal-flow var(--signal-duration) linear var(--signal-delay) infinite;
+  background: linear-gradient(90deg, transparent, rgba(17, 20, 24, 0.78) 52%, rgba(122, 134, 153, 0.5));
+  height: 1px;
+  left: 50%;
+  opacity: 0;
+  position: absolute;
+  top: 57%;
+  transform-origin: left center;
+  width: var(--signal-length);
+  will-change: transform, opacity;
+}
+
+.hero-signal:nth-child(5n) {
+  height: 2px;
+}
+
+@keyframes hero-signal-flow {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--signal-angle)) translateX(var(--signal-distance)) scaleX(0.58);
+  }
+  24% {
+    opacity: var(--signal-opacity);
+  }
+  72% {
+    opacity: calc(var(--signal-opacity) * 0.72);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--signal-angle)) translateX(calc(var(--signal-distance) + var(--signal-travel))) scaleX(1);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -69,5 +149,17 @@ p {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .brand-button:hover,
+  .brand-button:active {
+    transform: none;
+  }
+
+  .hero-signal {
+    animation: none !important;
+    opacity: calc(var(--signal-opacity) * 0.45);
+    transform: rotate(var(--signal-angle)) translateX(var(--signal-distance)) scaleX(0.8);
+    will-change: auto;
   }
 }

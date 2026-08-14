@@ -16,13 +16,14 @@ Koderea's homepage is a brand-led company profile with commercial paths into ent
 ## Component vocabulary
 
 - Navigation: transparent over the hero, then a lightly blurred paper surface after scroll.
-- Buttons: pill-shaped with Carbon/Slate fills or a Slate 100 border; preserve visible keyboard focus.
+- Hero buttons: 12px radius, Rethink Sans Medium, 120% leading, -2% tracking, and the approved monochrome radial fill with an inset highlight. Large campaign buttons may use the 37px pill variant from Figma node `81:144`.
 - Cards: paper or soft surface fills, Slate 100 borders, restrained shadows, and moderate radii.
 - Forms: light surfaces, explicit labels, native validation, and clear success/disclosure copy.
 
 ## Motion
 
-- The hero LightRays interaction and the assurance horizontal scroll are the two signature motion moments.
+- The hero uses a lightweight monochrome radial signal field above the approved horizon artwork; the assurance horizontal scroll remains the second signature motion moment.
+- Hero signals are deterministic 2D CSS transforms. Do not replace them with Three.js, WebGL, or invented 3D assets.
 - GSAP horizontal sections pin a dedicated viewport, animate a single track, and calculate travel from actual scroll width.
 - Mobile and reduced-motion modes expose all content vertically without pinning.
 - Ordinary hover and state feedback stays within 150–350ms and favors transform/opacity.
@@ -37,3 +38,5 @@ Koderea's homepage is a brand-led company profile with commercial paths into ent
 
 - Brand palette and type guide supplied by Koderea Brand Design.
 - Assurance composition: [Figma node 71:5087](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=71-5087).
+- Hero composition: [Figma node 126:775](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=126-775).
+- Hero CTA: [Figma node 126:797](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=126-797).

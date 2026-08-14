@@ -1,114 +1,84 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import LightRays from "@/components/LightRays";
 import { ArrowRightIcon } from "@/components/ui/arrow-right";
-import { MouseIcon } from "@/components/ui/mouse";
-
-const LIGHT_RAYS_MASK =
-  "radial-gradient(ellipse 42% 58% at 50% 50%, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.28) 46%, rgba(0, 0, 0, 0.78) 76%, #000 100%)";
+import { HeroSignalField } from "@/components/home/HeroSignalField";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-12 text-center md:px-12 lg:px-24 overflow-hidden">
+    <section className="relative flex min-h-svh overflow-hidden bg-paper px-6 pb-24 pt-32 text-center md:px-10 md:pb-28 md:pt-36">
+      <HeroSignalField />
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-      >
-        <div
-          className="h-full w-full"
-          style={{ maskImage: LIGHT_RAYS_MASK, WebkitMaskImage: LIGHT_RAYS_MASK }}
-        >
-          {shouldReduceMotion ? (
-            <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_rgba(122,134,153,0.18),_transparent_65%)]" />
-          ) : (
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#7A8699"
-              raysSpeed={0.28}
-              lightSpread={0.75}
-              rayLength={2}
-              fadeDistance={1.05}
-              saturation={0.85}
-              followMouse
-              mouseInfluence={0.35}
-              noiseAmount={0.025}
-              distortion={0.025}
-              className="opacity-40 mix-blend-multiply"
-            />
-          )}
-        </div>
-      </div>
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_43%,rgba(253,253,253,0.92)_0%,rgba(253,253,253,0.72)_21%,rgba(253,253,253,0.12)_44%,transparent_66%)]"
+      />
 
-      {/* Optional subtle gradient to fade out the top/bottom edges */}
-      <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_var(--tw-gradient-stops))] from-transparent via-background/20 to-background pointer-events-none"></div>
+      <Image
+        src="/brand/hero-horizon.svg"
+        alt=""
+        width={1440}
+        height={357}
+        priority
+        sizes="100vw"
+        className="pointer-events-none absolute bottom-[-7rem] left-1/2 z-[1] h-auto w-[max(100%,58rem)] max-w-none -translate-x-1/2 select-none md:bottom-[-5rem]"
+      />
 
-      <div className="relative z-10 flex w-full flex-col items-center sm:pb-12">
+      <div className="relative z-10 mx-auto flex w-full max-w-[42rem] flex-col items-center self-center pb-24 md:pb-28">
         <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="max-w-4xl mx-auto"
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
         >
-          <h1 className="mb-8 text-5xl font-semibold leading-none tracking-[-0.02em] text-foreground md:text-7xl lg:text-[80px]">
-            Trust through assurance.<br />
-            <span className="text-slate-500">Accelerate your AI.</span>
+          <h1 className="text-[clamp(3rem,5vw,4.25rem)] font-medium leading-[1.1] tracking-[-0.04em] text-[#1d1d1d]">
+            <span className="block">AI Claims are Easy.</span>
+            <span className="block">Evidence is Harder.</span>
           </h1>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 18, filter: "blur(7px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="max-w-2xl mx-auto"
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
-          <p className="mb-12 text-lg font-normal leading-[1.3] text-muted md:text-xl">
-            Koderea helps organizations adopt AI with evidence, clarity, and local context.
-            We provide expert third-party validation, risk assessment, and compliance framework advisory for critical AI systems in Indonesia.
+          <p className="mt-5 max-w-[33rem] text-base font-normal leading-[1.5] text-slate-700">
+            Koderea turns AI claims into validated evidence through independent testing,
+            local-context evaluation, and structured assurance.
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <motion.a
+          href="#contact"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
+          className="brand-button mt-7 inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-medium leading-[1.2] tracking-[-0.02em] text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700"
         >
-          <a
-            href="#capabilities"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-8 text-sm font-medium text-background transition-transform hover:scale-105"
-          >
-            Explore our capabilities
-          </a>
-          <a
-            href="#academy"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-slate-100 bg-paper/65 backdrop-blur-sm px-8 text-sm font-medium text-foreground transition-colors hover:border-slate-300 hover:bg-slate-100/50"
-          >
-            View Academy
-            <ArrowRightIcon aria-hidden="true" size={16} className="motion-reduce:pointer-events-none" />
-          </a>
-        </motion.div>
+          Start consultation
+        </motion.a>
       </div>
 
-      <div className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 sm:block">
+      <div className="absolute bottom-7 left-1/2 z-20 -translate-x-1/2 md:bottom-9">
         <motion.a
           href="#company-intro"
-          aria-label="Scroll to learn about Koderea"
+          aria-label="See how Koderea works"
           animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
           transition={
             shouldReduceMotion
               ? undefined
               : { duration: 1.8, ease: "easeInOut", repeat: Infinity }
           }
-          className="block rounded-full text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+          className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm font-medium leading-[1.2] tracking-[-0.02em] text-[#1d1d1d] transition-colors hover:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700 md:text-base"
         >
-          <MouseIcon
+          See how Koderea works
+          <ArrowRightIcon
             aria-hidden="true"
-            size={42}
-            className={shouldReduceMotion ? "pointer-events-none" : undefined}
+            size={20}
+            className={`rotate-90 ${shouldReduceMotion ? "pointer-events-none" : ""}`}
           />
         </motion.a>
       </div>
