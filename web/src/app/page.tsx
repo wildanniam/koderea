@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/home/Hero";
-import { Capabilities } from "@/components/home/Capabilities";
+import { AssuranceBridge } from "@/components/home/AssuranceBridge";
 import { AssuranceNarrative } from "@/components/home/AssuranceNarrative";
 import { Authority } from "@/components/home/Authority";
 import { AcademyWaitlist } from "@/components/home/AcademyWaitlist";
@@ -20,7 +20,7 @@ export default function Home() {
       <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Hero />
         <AssuranceNarrative />
-        <Capabilities />
+        <AssuranceBridge />
         <Authority />
         <AcademyWaitlist />
         <ContactCTA />

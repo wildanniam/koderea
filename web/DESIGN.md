@@ -12,6 +12,7 @@ Koderea's homepage is a brand-led company profile with commercial paths into ent
 - Use the approved neutral scale: Carbon `#0C0F12`, Slate 900 `#111418`, Slate 700 `#1E2530`, Slate 500 `#3A4455`, Slate 300 `#7A8699`, and Slate 100 `#E2E7EF`.
 - Official logo artwork lives in `public/brand`. Do not recreate the wordmark as text.
 - Assurance process artwork lives in `public/assurance` and is sourced from the approved Figma design.
+- The assurance bridge diagram lives in `public/bridging` as an exact local SVG export. Preserve its complete input → assurance layer → output story; mobile presents it as a horizontally scrollable diagram rather than shrinking its labels below legibility.
 
 ## Component vocabulary
 
@@ -43,3 +44,4 @@ Koderea's homepage is a brand-led company profile with commercial paths into ent
 - Hero composition: [Figma node 126:775](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=126-775).
 - Hero CTA: [Figma node 126:797](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=126-797).
 - Global navigation: [Figma node 204:1170](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=204-1170).
+- Assurance bridge: [Figma node 204:1943](https://www.figma.com/design/NrnqOcTW9IWpMh7zn8bpSC/Design-for-Koderea?node-id=204-1943).
