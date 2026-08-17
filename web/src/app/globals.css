@@ -133,6 +133,22 @@ p {
   height: 2px;
 }
 
+.bridge-connector {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(122, 134, 153, 0.6) 0 5px,
+    transparent 5px 10px
+  );
+  background-size: 20px 1px;
+  animation: bridge-signal-flow 1.8s linear infinite;
+}
+
+@keyframes bridge-signal-flow {
+  to {
+    background-position-x: 20px;
+  }
+}
+
 [data-hero-content],
 [data-hero-horizon],
 [data-hero-signals],
@@ -183,6 +199,10 @@ p {
     opacity: calc(var(--signal-opacity) * 0.45);
     transform: rotate(var(--signal-angle)) translateX(var(--signal-distance)) scaleX(0.8);
     will-change: auto;
+  }
+
+  .bridge-connector {
+    animation: none !important;
   }
 
   [data-hero-content],
