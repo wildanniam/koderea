@@ -133,10 +133,6 @@ p {
   height: 2px;
 }
 
-.bridge-flow-asset[data-state="active"] {
-  animation: bridge-path-pulse 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
 .bridge-card[data-active="true"] .bridge-pill {
   transform: translateX(3px);
 }
@@ -155,19 +151,6 @@ p {
 
 .bridge-card[data-active="true"] .bridge-pill:nth-child(5) {
   transition-delay: 140ms;
-}
-
-@keyframes bridge-path-pulse {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgba(58, 68, 85, 0));
-    opacity: 0.78;
-  }
-
-  50% {
-    filter: drop-shadow(0 0 3px rgba(58, 68, 85, 0.2));
-    opacity: 1;
-  }
 }
 
 [data-hero-content],
