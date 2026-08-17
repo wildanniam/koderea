@@ -141,19 +141,40 @@ function FlowAsset({
             pathLength="1"
             vectorEffect="non-scaling-stroke"
             stroke="#3A4455"
-            strokeWidth="1.6"
+            strokeWidth="1.25"
             strokeLinecap="round"
             initial={false}
             animate={
               trace
-                ? { pathLength: [0, 1, 1], opacity: [0, 0.9, 0] }
+                ? { pathLength: [0, 1, 1], opacity: [0, 0.38, 0] }
                 : { pathLength: 0, opacity: 0 }
             }
             transition={{
-              duration: 0.9,
+              duration: 1.15,
               delay: traceDelay,
-              times: [0, 0.76, 1],
+              times: [0, 0.82, 1],
               ease: [0.22, 1, 0.36, 1],
+            }}
+          />
+          <motion.path
+            d={geometry.path}
+            pathLength="1"
+            vectorEffect="non-scaling-stroke"
+            stroke="#3A4455"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray="0.035 0.965"
+            initial={false}
+            animate={
+              trace
+                ? { strokeDashoffset: [0, -1], opacity: [0, 1, 1, 0] }
+                : { strokeDashoffset: 0, opacity: 0 }
+            }
+            transition={{
+              duration: 1.15,
+              delay: traceDelay,
+              times: [0, 0.12, 0.82, 1],
+              ease: "linear",
             }}
           />
         </motion.svg>
@@ -200,7 +221,7 @@ function InputStack({
         {items.map(([label, icon]) => (
           <li
             key={label}
-            className="bridge-pill flex items-center gap-2 rounded-full border border-[#e6e6e6] bg-white px-3 py-2 text-[12px] font-medium leading-none text-[#515151] transition-[transform,box-shadow,color] duration-200 hover:translate-x-1 hover:text-carbon hover:shadow-[0_5px_14px_rgba(30,37,48,0.08)]"
+            className="flex items-center gap-2 rounded-full border border-[#e6e6e6] bg-white px-3 py-2 text-[12px] font-medium leading-none text-[#515151]"
           >
             <AssetIcon name={icon} />
             <span className="whitespace-nowrap">{label}</span>
@@ -269,15 +290,14 @@ function OutputStack({
             animate={
               introRunning
                 ? { x: [0, -3, 0], scale: [1, 1.012, 1] }
-                : { x: isActive ? -3 : 0, scale: 1 }
+                : { x: 0, scale: 1 }
             }
-            whileHover={{ x: -4 }}
             transition={{
               duration: 0.42,
               delay: introRunning ? introOffset + index * 0.06 : 0,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="bridge-pill flex items-center justify-between rounded-full border border-[#e6e6e6] bg-white px-3 py-2 text-[11px] font-medium leading-none text-[#515151] transition-[transform,box-shadow,color] duration-200 hover:-translate-x-1 hover:text-carbon hover:shadow-[0_5px_14px_rgba(30,37,48,0.08)]"
+            className="flex items-center justify-between rounded-full border border-[#e6e6e6] bg-white px-3 py-2 text-[11px] font-medium leading-none text-[#515151]"
           >
             <span>{item}</span>
             <AssetIcon name="check.svg" />
@@ -440,8 +460,8 @@ export function AssuranceBridge() {
                 initial={false}
                 animate={
                   coreIsActive && !shouldReduceMotion
-                    ? { scale: [1, 1.025, 1], rotate: [0, 2.5, 0], filter: "drop-shadow(0 5px 14px rgba(58,68,85,0.08))" }
-                    : { scale: 1, rotate: 0, filter: "drop-shadow(0 0 0 rgba(58,68,85,0))" }
+                    ? { scale: [1, 1.025, 1], rotate: [0, 2.5, 0], filter: "drop-shadow(0px 5px 14px rgba(58,68,85,0.08))" }
+                    : { scale: 1, rotate: 0, filter: "drop-shadow(0px 0px 0px rgba(58,68,85,0))" }
                 }
                 transition={{ duration: introRunning ? 0.8 : 0.55, delay: introRunning ? 0.62 : 0, ease: [0.22, 1, 0.36, 1] }}
               >
@@ -453,8 +473,8 @@ export function AssuranceBridge() {
                 initial={false}
                 animate={
                   coreIsActive && !shouldReduceMotion
-                    ? { scale: [1, 1.04, 1], filter: "drop-shadow(0 12px 24px rgba(58,68,85,0.12))" }
-                    : { scale: 1, filter: "drop-shadow(0 0 0 rgba(58,68,85,0))" }
+                    ? { scale: [1, 1.04, 1], filter: "drop-shadow(0px 12px 24px rgba(58,68,85,0.12))" }
+                    : { scale: 1, filter: "drop-shadow(0px 0px 0px rgba(58,68,85,0))" }
                 }
                 transition={{ duration: introRunning ? 0.72 : 0.5, delay: introRunning ? 0.68 : 0, ease: [0.22, 1, 0.36, 1] }}
               >
@@ -513,7 +533,9 @@ export function AssuranceBridge() {
                   <span className="flex size-12 items-center justify-center rounded-full border border-[#e6e6e6] bg-white shadow-[0_3px_10px_rgba(30,37,48,0.04)] transition-[transform,box-shadow] duration-300 hover:scale-[1.04] hover:shadow-[0_10px_24px_rgba(30,37,48,0.1)]">
                     <AssetIcon name={control.icon} size={29} />
                   </span>
-                  <span className="text-[12px] font-medium leading-[1.1] text-[#515151]">{control.label}</span>
+                  <span className="relative z-10 rounded-[4px] bg-[#fafafa] px-1.5 py-0.5 text-[12px] font-medium leading-[1.1] text-[#515151] shadow-[0_0_0_3px_#fafafa]">
+                    {control.label}
+                  </span>
                 </motion.div>
               ))}
 
