@@ -29,9 +29,9 @@ export function Hero() {
       let hasSnapped = false;
       let previousScrollY = window.scrollY;
 
-      const snapToCompanyIntro = contextSafe(() => {
-        const companyIntro = document.getElementById("company-intro");
-        if (!companyIntro || snapTween) return;
+      const snapToAssurance = contextSafe(() => {
+        const assurance = document.getElementById("assurance");
+        if (!assurance || snapTween) return;
 
         hasSnapped = true;
 
@@ -41,7 +41,7 @@ export function Hero() {
 
         snapTween = gsap.to(window, {
           scrollTo: {
-            y: companyIntro,
+            y: assurance,
             autoKill: false,
           },
           duration: 0.62,
@@ -73,9 +73,9 @@ export function Hero() {
       const handleScroll = () => {
         const currentScrollY = window.scrollY;
         const heroTrigger = timeline.scrollTrigger;
-        const companyIntro = document.getElementById("company-intro");
+        const assurance = document.getElementById("assurance");
 
-        if (!heroTrigger || !companyIntro) {
+        if (!heroTrigger || !assurance) {
           previousScrollY = currentScrollY;
           return;
         }
@@ -84,14 +84,14 @@ export function Hero() {
         const isMovingDown = currentScrollY > previousScrollY;
         const snapStart = heroTrigger.start + (heroTrigger.end - heroTrigger.start) * 0.9;
         const isInTransitionZone =
-          currentScrollY >= snapStart && currentScrollY < companyIntro.offsetTop;
+          currentScrollY >= snapStart && currentScrollY < assurance.offsetTop;
 
         if (isMovingUp) {
           hasSnapped = false;
           snapTween?.kill();
           snapTween = null;
         } else if (!hasSnapped && isMovingDown && isInTransitionZone) {
-          snapToCompanyIntro();
+          snapToAssurance();
         }
 
         previousScrollY = currentScrollY;
@@ -179,7 +179,7 @@ export function Hero() {
           className="absolute bottom-7 left-1/2 z-20 -translate-x-1/2 md:bottom-9"
         >
           <motion.a
-            href="#company-intro"
+            href="#assurance"
             aria-label="See how Koderea works"
             animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
             transition={
