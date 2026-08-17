@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 
 type FlowGroup = "institution" | "vendor" | "controls" | "validation" | "report";
 
@@ -20,11 +20,11 @@ const vendorItems = [
 ] as const;
 
 const controls = [
-  { label: "Monitoring & Feedback", icon: "monitoring.svg", className: "left-[40.7%] top-[9%]" },
-  { label: "Risk & Controls", icon: "risk.svg", className: "left-[53.7%] top-[9%]" },
-  { label: "Explainability", icon: "explainability.svg", className: "left-[33.3%] top-[43%]" },
-  { label: "Policy & Standards", icon: "policy.svg", className: "left-[62.3%] top-[43%]" },
-  { label: "Fairness / Bias Checks", icon: "fairness.svg", className: "left-[46.3%] top-[76%]" },
+  { label: "Monitoring & Feedback", icon: "monitoring.svg", className: "left-[41.08%] top-[15.83%] w-[5.67%]" },
+  { label: "Risk & Controls", icon: "risk.svg", className: "left-[51.17%] top-[15.3%] w-[7.04%]" },
+  { label: "Explainability", icon: "explainability.svg", className: "left-[33.75%] top-[42.26%] w-[6.71%]" },
+  { label: "Policy & Standards", icon: "policy.svg", className: "left-[57.5%] top-[42.26%] w-[8.72%]" },
+  { label: "Fairness / Bias Checks", icon: "fairness.svg", className: "left-[45.67%] top-[65.57%] w-[6.96%]" },
 ] as const;
 
 const validationItems = ["Performance", "Fairness", "Risk", "Compliance", "Readiness"];
@@ -41,6 +41,43 @@ function AssetIcon({ name, size = 16 }: { name: string; size?: number }) {
         loading="eager"
         unoptimized
         className="object-contain"
+      />
+    </span>
+  );
+}
+
+function FlowAsset({
+  name,
+  className,
+  state,
+  style,
+}: {
+  name: string;
+  className: string;
+  state: "idle" | "active" | "muted";
+  style?: CSSProperties;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      data-state={state}
+      style={style}
+      className={`${className} bridge-flow-asset absolute z-[1] transition-[opacity,filter,transform] duration-500 ${
+        state === "active"
+          ? "opacity-100 drop-shadow-[0_0_3px_rgba(58,68,85,0.18)]"
+          : state === "muted"
+            ? "opacity-20"
+            : "opacity-70"
+      }`}
+    >
+      <Image
+        src={`/bridging/lines/${name}`}
+        alt=""
+        fill
+        sizes="220px"
+        loading="eager"
+        unoptimized
+        className="object-fill"
       />
     </span>
   );
@@ -71,11 +108,12 @@ function InputStack({
       onPointerLeave={() => setActiveGroup(null)}
       onFocus={() => setActiveGroup(group)}
       onBlur={() => setActiveGroup(null)}
-      className={`${className} bridge-card absolute z-20 w-[17%] rounded-[13px] border border-[#edeef2] bg-[#fafafa] p-3 shadow-[0_4px_13px_rgba(221,221,221,0.25),inset_0_20px_20px_rgba(178,178,178,0.12)] outline-none transition-[transform,opacity,box-shadow,border-color] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
+      data-active={isActive}
+      className={`${className} bridge-card absolute z-20 w-[16.55%] rounded-[13px] border border-[#edeef2] bg-[#fafafa] p-3 shadow-[0_4px_13px_rgba(221,221,221,0.25),inset_0_20px_20px_rgba(178,178,178,0.12)] outline-none transition-[transform,opacity,box-shadow] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
         isActive
-          ? "-translate-y-1 border-slate-300 shadow-[0_16px_36px_rgba(30,37,48,0.12),inset_0_20px_20px_rgba(178,178,178,0.1)]"
+          ? "-translate-y-1 scale-[1.012] shadow-[0_16px_36px_rgba(30,37,48,0.11),inset_0_20px_20px_rgba(178,178,178,0.1)]"
           : ""
-      } ${isDimmed ? "opacity-55" : "opacity-100"}`}
+      } ${isDimmed ? "opacity-70" : "opacity-100"}`}
       aria-label={`${title}: ${items.map(([label]) => label).join(", ")}`}
     >
       <h3 className="mb-3 text-[12px] font-semibold tracking-[0.1em] text-[#adadad]">{title}</h3>
@@ -121,18 +159,17 @@ function OutputStack({
       onPointerLeave={() => setActiveGroup(null)}
       onFocus={() => setActiveGroup(group)}
       onBlur={() => setActiveGroup(null)}
-      className={`${className} bridge-card absolute z-20 w-[17%] rounded-[13px] border border-[#edeef2] bg-[#fafafa] p-3 shadow-[0_4px_13px_rgba(221,221,221,0.25),inset_0_20px_20px_rgba(178,178,178,0.12)] outline-none transition-[transform,opacity,box-shadow,border-color] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
+      data-active={isActive}
+      className={`${className} bridge-card absolute z-20 w-[16.55%] rounded-[13px] border border-[#edeef2] bg-[#fafafa] p-3 shadow-[0_4px_13px_rgba(221,221,221,0.25),inset_0_20px_20px_rgba(178,178,178,0.12)] outline-none transition-[transform,opacity,box-shadow] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
         isActive
-          ? "-translate-y-1 border-slate-300 shadow-[0_16px_36px_rgba(30,37,48,0.12),inset_0_20px_20px_rgba(178,178,178,0.1)]"
+          ? "-translate-y-1 scale-[1.012] shadow-[0_16px_36px_rgba(30,37,48,0.11),inset_0_20px_20px_rgba(178,178,178,0.1)]"
           : ""
-      } ${isDimmed ? "opacity-55" : "opacity-100"}`}
+      } ${isDimmed ? "opacity-70" : "opacity-100"}`}
       aria-label={`${title}: ${items.join(", ")}`}
     >
       {subtitle ? (
         <div className="mb-3 flex items-center gap-2">
-          <span className="flex size-10 items-center justify-center rounded-lg bg-[#5a5a5a]">
-            <AssetIcon name="report.svg" size={23} />
-          </span>
+          <AssetIcon name="report.svg" size={40} />
           <div>
             <h3 className="text-[12px] font-semibold leading-tight text-carbon">{title}</h3>
             <p className="mt-0.5 text-[11px] leading-tight text-[#707070]">{subtitle}</p>
@@ -158,9 +195,18 @@ function OutputStack({
 
 export function AssuranceBridge() {
   const [activeGroup, setActiveGroup] = useState<FlowGroup | null>(null);
-  const hasActiveInput = activeGroup === "institution" || activeGroup === "vendor";
-  const hasActiveOutput = activeGroup === "validation" || activeGroup === "report";
+  const [activeControl, setActiveControl] = useState<string | null>(null);
   const coreIsActive = activeGroup !== null;
+  const stateFor = (group: FlowGroup): "idle" | "active" | "muted" => {
+    if (activeGroup === null) return "idle";
+    return activeGroup === group ? "active" : "muted";
+  };
+  const outputState =
+    activeGroup === null
+      ? "idle"
+      : activeGroup === "validation" || activeGroup === "report"
+        ? "active"
+        : "muted";
 
   return (
     <section
@@ -192,30 +238,46 @@ export function AssuranceBridge() {
             className="mt-4 overflow-x-auto overscroll-x-contain px-6 pb-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700 lg:mt-0 lg:overflow-visible lg:px-0 lg:pb-0"
           >
             <div className="relative aspect-[1200/575] w-[920px] overflow-hidden rounded-[20px] border border-[#e6e6e6] bg-[#fafafa] lg:w-full">
-              <div
-                aria-hidden="true"
-                className={`bridge-connector absolute left-[20%] top-[35%] z-0 h-[1px] w-[20%] transition-opacity duration-300 ${
-                  activeGroup === null || hasActiveInput ? "opacity-100" : "opacity-25"
-                }`}
-              />
-              <div
-                aria-hidden="true"
-                className={`bridge-connector absolute left-[20%] top-[72%] z-0 h-[1px] w-[20%] transition-opacity duration-300 ${
-                  activeGroup === null || hasActiveInput ? "opacity-100" : "opacity-25"
-                }`}
-              />
-              <div
-                aria-hidden="true"
-                className={`bridge-connector absolute left-[66%] top-[35%] z-0 h-[1px] w-[15%] transition-opacity duration-300 ${
-                  activeGroup === null || hasActiveOutput ? "opacity-100" : "opacity-25"
-                }`}
-              />
-              <div
-                aria-hidden="true"
-                className={`bridge-connector absolute left-[66%] top-[72%] z-0 h-[1px] w-[15%] transition-opacity duration-300 ${
-                  activeGroup === null || hasActiveOutput ? "opacity-100" : "opacity-25"
-                }`}
-              />
+              <FlowAsset name="institution-1.svg" className="left-[20.62%] top-[17.1%] h-[40%] w-[15.17%]" state={stateFor("institution")} />
+              <FlowAsset name="institution-2.svg" className="left-[20.62%] top-[24%] h-[33.05%] w-[14.59%]" state={stateFor("institution")} />
+              <FlowAsset name="institution-3.svg" className="left-[20.62%] top-[30.75%] h-[26.27%] w-[14.75%]" state={stateFor("institution")} />
+              <FlowAsset name="institution-4.svg" className="left-[20.62%] top-[37.8%] h-[19.31%] w-[14.75%]" state={stateFor("institution")} />
+              <FlowAsset name="institution-5.svg" className="left-[20.62%] top-[44.6%] h-[12.53%] w-[11.42%]" state={stateFor("institution")} />
+
+              <FlowAsset name="vendor-1.svg" className="left-[19.78%] top-[57%] h-[16%] w-[13%] -scale-y-100" state={stateFor("vendor")} />
+              <FlowAsset name="vendor-2.svg" className="left-[20.11%] top-[57%] h-[22.44%] w-[13%] -scale-y-100" state={stateFor("vendor")} />
+              <FlowAsset name="vendor-3.svg" className="left-[20.11%] top-[57.17%] h-[28.52%] w-[14.5%] -scale-y-100" state={stateFor("vendor")} />
+
+              <FlowAsset name="output-bus.svg" className="left-[73.96%] top-[25.13%] h-[52.87%] w-[6.42%]" state={outputState} />
+              <FlowAsset name="output-lead.svg" className="left-[62.7%] top-[50.09%] h-[0.18%] w-[11.42%]" state={outputState} />
+
+              {[16.14, 22.79, 29.44, 36.09, 42.74].map((top) => (
+                <FlowAsset
+                  key={`institution-endpoint-${top}`}
+                  name="source-endpoint.svg"
+                  className="left-[19.65%] h-[2.1%] w-[1.01%]"
+                  style={{ top: `${top}%` }}
+                  state={stateFor("institution")}
+                />
+              ))}
+              {[70.84, 77.49, 84.14].map((top) => (
+                <FlowAsset
+                  key={`vendor-endpoint-${top}`}
+                  name="source-endpoint.svg"
+                  className="left-[19.77%] h-[2.1%] w-[1.01%]"
+                  style={{ top: `${top}%` }}
+                  state={stateFor("vendor")}
+                />
+              ))}
+              {[24.17, 76.69].map((top) => (
+                <FlowAsset
+                  key={`output-endpoint-${top}`}
+                  name="output-endpoint.svg"
+                  className="left-[79.83%] h-[2.1%] w-[1.01%]"
+                  style={{ top: `${top}%` }}
+                  state={outputState}
+                />
+              ))}
 
               <InputStack
                 title="INSTITUTION DATA"
@@ -234,28 +296,25 @@ export function AssuranceBridge() {
                 className="left-[3.7%] top-[62%]"
               />
 
-              <div
+              <span
                 aria-hidden="true"
-                className={`absolute left-1/2 top-1/2 z-0 aspect-square w-[28%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed transition-[border-color,transform,opacity] duration-500 ${
-                  coreIsActive ? "scale-105 border-slate-300 opacity-100" : "border-[#dedede] opacity-80"
-                }`}
-              />
-              <div
-                aria-hidden="true"
-                className={`absolute left-1/2 top-1/2 z-0 aspect-square w-[21%] -translate-x-1/2 -translate-y-1/2 rounded-full border transition-[border-color,transform] duration-500 ${
-                  coreIsActive ? "scale-105 border-slate-300" : "border-[#e4e4e4]"
-                }`}
-              />
-
-              <div
-                className={`absolute left-1/2 top-1/2 z-10 flex aspect-square w-[14.1%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-[#e6e6e6] bg-[#fafafa] text-center shadow-[0_8px_24px_rgba(30,37,48,0.12),inset_0_16px_20px_rgba(178,178,178,0.13)] transition-[transform,box-shadow] duration-500 ${
-                  coreIsActive
-                    ? "scale-105 shadow-[0_18px_48px_rgba(30,37,48,0.18),inset_0_16px_20px_rgba(178,178,178,0.11)]"
-                    : ""
+                className={`absolute left-[36.45%] top-[21.26%] z-[2] aspect-square w-[25.15%] transition-[transform,filter] duration-500 ${
+                  coreIsActive ? "scale-[1.012] drop-shadow-[0_5px_14px_rgba(58,68,85,0.08)]" : ""
                 }`}
               >
-                <AssetIcon name="assurance-mark.svg" size={58} />
-                <p className="mt-3 max-w-[90px] text-[14px] font-medium leading-[1.05] text-[#515151]">
+                <Image src="/bridging/lines/assurance-rings.svg" alt="" fill sizes="302px" loading="eager" unoptimized />
+              </span>
+
+              <div
+                className={`absolute left-[41.99%] top-[32.7%] z-10 aspect-square w-[14.09%] text-center transition-[transform,filter] duration-500 ${
+                  coreIsActive ? "scale-[1.018] drop-shadow-[0_12px_24px_rgba(58,68,85,0.12)]" : ""
+                }`}
+              >
+                <Image src="/bridging/lines/core-surface.svg" alt="" fill sizes="170px" loading="eager" unoptimized />
+                <span className="absolute left-[27.3%] top-[17.7%] h-[35.7%] w-[44.4%]">
+                  <Image src="/bridging/icons/assurance-mark.svg" alt="" fill sizes="75px" loading="eager" unoptimized />
+                </span>
+                <p className="absolute inset-x-[24%] top-[59.7%] text-[14px] font-medium leading-[1.05] text-[#515151]">
                   Independent Assurance Layer
                 </p>
               </div>
@@ -264,15 +323,27 @@ export function AssuranceBridge() {
                 <div
                   key={control.label}
                   tabIndex={0}
-                  onPointerEnter={() => setActiveGroup("controls")}
-                  onPointerLeave={() => setActiveGroup(null)}
-                  onFocus={() => setActiveGroup("controls")}
-                  onBlur={() => setActiveGroup(null)}
-                  className={`${control.className} absolute z-20 flex w-[9%] flex-col items-center gap-2 text-center outline-none transition-[transform,opacity] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
-                    activeGroup === "controls" ? "-translate-y-1" : ""
-                  } ${activeGroup !== null && activeGroup !== "controls" ? "opacity-45" : "opacity-100"}`}
+                  onPointerEnter={() => {
+                    setActiveGroup("controls");
+                    setActiveControl(control.label);
+                  }}
+                  onPointerLeave={() => {
+                    setActiveGroup(null);
+                    setActiveControl(null);
+                  }}
+                  onFocus={() => {
+                    setActiveGroup("controls");
+                    setActiveControl(control.label);
+                  }}
+                  onBlur={() => {
+                    setActiveGroup(null);
+                    setActiveControl(null);
+                  }}
+                  className={`${control.className} absolute z-20 flex flex-col items-center gap-2 text-center outline-none transition-[transform,opacity] duration-300 focus-visible:ring-2 focus-visible:ring-slate-300 ${
+                    activeControl === control.label ? "-translate-y-1 scale-[1.04]" : ""
+                  } ${activeGroup !== null && activeGroup !== "controls" ? "opacity-70" : activeControl && activeControl !== control.label ? "opacity-75" : "opacity-100"}`}
                 >
-                  <span className="flex size-12 items-center justify-center rounded-full border border-[#e6e6e6] bg-white shadow-[0_3px_10px_rgba(30,37,48,0.04)] transition-[transform,box-shadow,border-color] duration-300 hover:scale-110 hover:border-slate-300 hover:shadow-[0_10px_24px_rgba(30,37,48,0.12)]">
+                  <span className="flex size-12 items-center justify-center rounded-full border border-[#e6e6e6] bg-white shadow-[0_3px_10px_rgba(30,37,48,0.04)] transition-[transform,box-shadow] duration-300 hover:scale-[1.04] hover:shadow-[0_10px_24px_rgba(30,37,48,0.1)]">
                     <AssetIcon name={control.icon} size={29} />
                   </span>
                   <span className="text-[12px] font-medium leading-[1.1] text-[#515151]">{control.label}</span>

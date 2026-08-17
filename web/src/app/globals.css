@@ -133,19 +133,40 @@ p {
   height: 2px;
 }
 
-.bridge-connector {
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(122, 134, 153, 0.6) 0 5px,
-    transparent 5px 10px
-  );
-  background-size: 20px 1px;
-  animation: bridge-signal-flow 1.8s linear infinite;
+.bridge-flow-asset[data-state="active"] {
+  animation: bridge-path-pulse 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-@keyframes bridge-signal-flow {
-  to {
-    background-position-x: 20px;
+.bridge-card[data-active="true"] .bridge-pill {
+  transform: translateX(3px);
+}
+
+.bridge-card[data-active="true"] .bridge-pill:nth-child(2) {
+  transition-delay: 35ms;
+}
+
+.bridge-card[data-active="true"] .bridge-pill:nth-child(3) {
+  transition-delay: 70ms;
+}
+
+.bridge-card[data-active="true"] .bridge-pill:nth-child(4) {
+  transition-delay: 105ms;
+}
+
+.bridge-card[data-active="true"] .bridge-pill:nth-child(5) {
+  transition-delay: 140ms;
+}
+
+@keyframes bridge-path-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(58, 68, 85, 0));
+    opacity: 0.78;
+  }
+
+  50% {
+    filter: drop-shadow(0 0 3px rgba(58, 68, 85, 0.2));
+    opacity: 1;
   }
 }
 
@@ -201,7 +222,7 @@ p {
     will-change: auto;
   }
 
-  .bridge-connector {
+  .bridge-flow-asset[data-state="active"] {
     animation: none !important;
   }
 
