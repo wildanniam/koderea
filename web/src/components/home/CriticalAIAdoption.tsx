@@ -136,8 +136,7 @@ function SectorItem({
           aria-hidden="true"
           width={sector.width}
           height={sector.height}
-          className="block h-auto w-full select-none"
-          style={{ width: "100%", height: "auto" }}
+          className="block select-none"
           draggable={false}
         />
       </motion.div>
