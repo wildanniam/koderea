@@ -19,22 +19,22 @@ const sectors: Sector[] = [
     label: "Healthcare",
     body: "Evaluate AI systems against local clinical context, performance, fairness, and safety requirements before deployment.",
     icon: "/home/critical-ai-adoption/healthcare-icon.svg",
-    width: 51,
+    width: 50.5262,
     height: 60,
   },
   {
     label: "Fintech",
     body: "Assess AI systems where reliability, fairness, risk, and compliance are critical to deployment decisions.",
     icon: "/home/critical-ai-adoption/fintech-icon.svg",
-    width: 54,
-    height: 58,
+    width: 54.4997,
+    height: 58.0001,
   },
   {
     label: "Government",
     body: "Support accountable AI adoption across public-sector systems through structured evaluation, governance, and evidence.",
     icon: "/home/critical-ai-adoption/government-icon.svg",
-    width: 81,
-    height: 59,
+    width: 80.8926,
+    height: 59.0001,
   },
 ];
 
