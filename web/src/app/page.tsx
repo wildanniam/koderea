@@ -1,7 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/home/Hero";
-import { CompanyIntro } from "@/components/home/CompanyIntro";
-import { Capabilities } from "@/components/home/Capabilities";
+import { AssuranceBridge } from "@/components/home/AssuranceBridge";
 import { AssuranceNarrative } from "@/components/home/AssuranceNarrative";
 import { Authority } from "@/components/home/Authority";
 import { AcademyWaitlist } from "@/components/home/AcademyWaitlist";
@@ -20,9 +19,8 @@ export default function Home() {
       <Header />
       <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Hero />
-        <CompanyIntro />
-        <Capabilities />
         <AssuranceNarrative />
+        <AssuranceBridge />
         <Authority />
         <AcademyWaitlist />
         <ContactCTA />

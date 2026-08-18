@@ -185,6 +185,10 @@ p {
     will-change: auto;
   }
 
+  .bridge-flow-asset[data-state="active"] {
+    animation: none !important;
+  }
+
   [data-hero-content],
   [data-hero-horizon],
   [data-hero-signals],

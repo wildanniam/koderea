@@ -4,10 +4,11 @@ import Link from "next/link";
 
 export function Footer() {
   const navigation = [
-    { href: "#capabilities", label: "Capabilities" },
-    { href: "#assurance", label: "Assurance" },
-    { href: "#academy", label: "Academy" },
-    { href: "#contact", label: "Contact" },
+    { href: "/product", label: "Product" },
+    { href: "/solutions/healthcare", label: "Solutions" },
+    { href: "/academy", label: "Academy" },
+    { href: "/events", label: "Event" },
+    { href: "/resources/about", label: "Resource" },
   ];
 
   return (
@@ -17,9 +18,9 @@ export function Footer() {
           <Image
             src="/brand/logo-koderea.svg"
             alt="Koderea"
-            width={191}
-            height={48}
-            className="mb-3 h-9 w-auto brightness-0 invert"
+            width={123}
+            height={28}
+            className="mb-3 h-7 w-auto brightness-0 invert"
           />
           <p className="text-sm">AI Advisory & Solutions Provider</p>
         </div>
