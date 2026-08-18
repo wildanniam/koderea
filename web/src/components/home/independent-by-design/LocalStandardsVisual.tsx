@@ -1,173 +1,145 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { VisualFrame, assetUrl } from "./VisualFrame";
 
-const STROKE = "rgba(255,255,255,0.14)";
+const W = 522;
+const H = 330;
 
-type Pill = { label: string; icon: ReactNode };
+type IconName =
+  | "group2.svg"
+  | "group3.svg"
+  | "group4.svg"
+  | "group5.svg"
+  | "group6.svg"
+  | "group7.svg"
+  | "mingcute-government-line.svg"
+  | "reicon-danger.svg";
 
-const leftPills: Pill[] = [
-  { label: "Healthcare", icon: <AsteriskGlyph /> },
-  { label: "Government", icon: <AssetGlyph src={assetUrl("mingcute-government-line.svg")} /> },
-  { label: "Fintech", icon: <DollarGlyph /> },
-  { label: "Institutional data", icon: <DatabaseGlyph /> },
+const leftItems: { label: string; icon: IconName; top: number }[] = [
+  { label: "Healthcare", icon: "group5.svg", top: 65 },
+  { label: "Government", icon: "mingcute-government-line.svg", top: 118 },
+  { label: "Fintech", icon: "group6.svg", top: 171 },
+  { label: "Institutional data", icon: "group7.svg", top: 224 },
 ];
 
-const rightPills: Pill[] = [
-  { label: "Standards", icon: <ShieldGlyph /> },
-  { label: "Policies", icon: <DocGlyph /> },
-  { label: "Risk frameworks", icon: <AssetGlyph src={assetUrl("reicon-danger.svg")} /> },
-  { label: "Compliance", icon: <CheckGlyph /> },
+const rightItems: { label: string; icon: IconName; top: number; tall?: boolean }[] = [
+  { label: "Standards", icon: "group2.svg", top: 65, tall: true },
+  { label: "Policies", icon: "group3.svg", top: 125 },
+  { label: "Risk frameworks", icon: "reicon-danger.svg", top: 178 },
+  { label: "Compliance", icon: "group4.svg", top: 231 },
 ];
 
-// Row centers (of 330) for both card columns and connector endpoints.
-const rowY = [66, 132, 198, 264];
+function PctAsset({ name, x, y, width, height, className = "" }: { name: string; x: number; y: number; width: number; height: number; className?: string }) {
+  return (
+    <span
+      className={`absolute ${className}`}
+      style={{ left: `${x / W * 100}%`, top: `${y / H * 100}%`, width: `${width / W * 100}%`, height: `${height / H * 100}%` }}
+    >
+      <Image src={assetUrl(name)} alt="" fill sizes={`${Math.ceil(width)}px`} className="object-fill" />
+    </span>
+  );
+}
 
 export function LocalStandardsVisual() {
   const reduce = useReducedMotion();
 
-  const leftPaths = rowY.map((y) => `M 171 ${y} C 205 ${y}, 205 165, 227 165`);
-  const rightPaths = rowY.map((y) => `M 295 165 C 320 165, 330 ${y}, 351 ${y}`);
-
   return (
     <>
-      <VisualFrame />
+      <VisualFrame style={{ background: "radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0d0d0d 50%, #070707 75%, #010101 100%)" }} />
 
-      {/* Connector layer */}
-      <svg
-        viewBox="0 0 522 330"
-        className="absolute inset-0 h-full w-full"
-        aria-hidden="true"
-        preserveAspectRatio="xMidYMid meet"
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={reduce ? { duration: 0 } : { duration: 0.45 }}
       >
-        {leftPaths.map((d, i) => (
-          <motion.path
-            key={`l-${d}`}
-            d={d}
-            fill="none"
-            stroke={STROKE}
-            strokeWidth={1}
-            strokeDasharray="4 5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.7, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.15 }}
+        >
+          <PctAsset name="vector1194233969.svg" x={178} y={87} width={52.358} height={161} />
+          <PctAsset name="vector1194233970.svg" x={178} y={139} width={50.615} height={55} />
+          <PctAsset name="vector1194233971.svg" x={290.5} y={87} width={54.349} height={166} className="-scale-x-100" />
+          <PctAsset name="vector1194233972.svg" x={290.5} y={145} width={52.346} height={55} className="-scale-x-100" />
+        </motion.div>
+
+        {leftItems.map((item, index) => (
+          <DiagramPill
+            key={item.label}
+            side="left"
+            {...item}
+            delay={0.12 + index * 0.08}
+            reduce={Boolean(reduce)}
           />
         ))}
-        {rightPaths.map((d, i) => (
-          <motion.path
-            key={`r-${d}`}
-            d={d}
-            fill="none"
-            stroke={STROKE}
-            strokeWidth={1}
-            strokeDasharray="4 5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.7, delay: 0.6 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        {rightItems.map((item, index) => (
+          <DiagramPill
+            key={item.label}
+            side="right"
+            {...item}
+            delay={0.48 + index * 0.08}
+            reduce={Boolean(reduce)}
           />
         ))}
-      </svg>
 
-      {/* Left column cards */}
-      <div className="absolute inset-y-0 left-[4%] flex w-[29%] flex-col justify-center gap-[2.4%]">
-        {leftPills.map((p) => (
-          <PillCard key={p.label} pill={p} />
+        {[80.04, 133, 185.96, 238.93].map((top, index) => (
+          <PctAsset key={`left-${top}`} name={index % 2 === 0 ? "ellipse47028.svg" : "ellipse47032.svg"} x={169.96} y={top} width={12} height={12} />
         ))}
-      </div>
-
-      {/* Right column cards */}
-      <div className="absolute inset-y-0 right-[4%] flex w-[29%] flex-col justify-center gap-[2.4%]">
-        {rightPills.map((p) => (
-          <PillCard key={p.label} pill={p} />
+        {[83, 140, 193, 246].map((top) => (
+          <PctAsset key={`right-${top}`} name="ellipse47032.svg" x={344.5} y={top} width={12} height={12} />
         ))}
-      </div>
 
-      {/* Central assurance node */}
-      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
-        <div className="flex h-[clamp(44px,13cqw,64px)] w-[clamp(44px,13cqw,64px)] items-center justify-center rounded-full border border-white/15 bg-white/[0.04] shadow-[0_0_28px_rgba(147,197,253,0.14)]">
-          <Image
-            src={assetUrl("icon-bare.svg")}
-            alt=""
-            width={28}
-            height={32}
-            className="h-[38%] w-auto"
-          />
+        <motion.div
+          className="absolute flex items-center rounded-full border border-[#D9D9D9]/40 bg-[#010101] p-[0.74%] shadow-[0_18px_16px_rgba(0,0,0,0.5)]"
+          style={{ left: `${225 / W * 100}%`, top: `${129 / H * 100}%`, width: `${72 / W * 100}%`, aspectRatio: "1" }}
+          initial={{ opacity: 0, scale: 0.72 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="flex size-full items-center justify-center rounded-full border border-[#6E6E6E]/40 bg-gradient-to-b from-[#010101] from-20% to-[#6E6E6E] to-[210%]">
+            <span className="relative h-[50%] w-[43%]">
+              <Image src={assetUrl("icon-bare.svg")} alt="" fill sizes="28px" className="object-fill" />
+            </span>
+          </div>
+        </motion.div>
+
+        <div
+          className="absolute text-center text-[clamp(7px,2.3cqw,12px)] font-medium leading-[1.2] text-[#ADADAD]"
+          style={{ left: `${232 / W * 100}%`, top: `${213 / H * 100}%`, width: `${58 / W * 100}%` }}
+        >
+          Assurance<br />Evaluation<br />Layer
         </div>
-        <span className="mt-2 max-w-[9ch] text-center text-[clamp(7px,2cqw,10px)] leading-tight text-[#ADADAD]">
-          Assurance Evaluation Layer
-        </span>
-      </div>
+      </motion.div>
     </>
   );
 }
 
-function PillCard({ pill }: { pill: Pill }) {
+function DiagramPill({ label, icon, top, side, tall, delay, reduce }: { label: string; icon: IconName; top: number; side: "left" | "right"; tall?: boolean; delay: number; reduce: boolean }) {
+  const x = side === "left" ? 20 : 350;
+  const width = side === "left" ? 156 : 152;
+  const height = tall ? 48 : 41;
+  const accent = side === "left" ? "#B9A9EF" : "#73DDF2";
+
   return (
-    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-[6%] py-[3.5%]">
-      <span className="flex h-[clamp(12px,3.2cqw,16px)] w-[clamp(12px,3.2cqw,16px)] shrink-0 items-center justify-center text-[#9CA3AF]">
-        {pill.icon}
+    <motion.div
+      className="absolute flex items-center gap-[5.13%] rounded-[12px] border bg-[#EEEEEE]/[0.05] px-[2.3%] backdrop-blur-[12px]"
+      style={{ left: `${x / W * 100}%`, top: `${top / H * 100}%`, width: `${width / W * 100}%`, height: `${height / H * 100}%`, borderColor: accent }}
+      initial={{ opacity: 0, x: side === "left" ? -10 : 10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={reduce ? { duration: 0 } : { duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <span className="relative size-[clamp(10px,3.1cqw,16px)] shrink-0">
+        <Image src={assetUrl(icon)} alt="" fill sizes="16px" className="object-contain" />
       </span>
-      <span className="truncate text-[clamp(8px,2.4cqw,12px)] leading-none text-[#D4D4D4]">
-        {pill.label}
-      </span>
-    </div>
-  );
-}
-
-/* ---- glyphs ---- */
-
-function AssetGlyph({ src }: { src: string }) {
-  return <Image src={src} alt="" width={16} height={16} className="h-full w-full opacity-80" />;
-}
-
-function AsteriskGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
-      <path d="M8 2v12M2.7 4.7l10.6 6.6M13.3 4.7L2.7 11.3" />
-    </svg>
-  );
-}
-function DollarGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 1.5v13M10.5 4.2A3 3 0 0 0 5.4 6.3c0 2.6 5.2 1.4 5.2 4a3 3 0 0 1-5.1 1.9" />
-    </svg>
-  );
-}
-function DatabaseGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.3">
-      <ellipse cx="8" cy="3.5" rx="5" ry="2" />
-      <path d="M3 3.5v9c0 1.1 2.2 2 5 2s5-.9 5-2v-9M3 8c0 1.1 2.2 2 5 2s5-.9 5-2" />
-    </svg>
-  );
-}
-function ShieldGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round">
-      <path d="M8 1.5l5 2v4c0 3.2-2.1 5.5-5 6.5-2.9-1-5-3.3-5-6.5v-4z" />
-      <path d="M5.8 8l1.6 1.6L10.4 6.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-function DocGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round">
-      <path d="M4 1.5h5l3 3v10H4z" />
-      <path d="M9 1.5v3h3M6 8h4M6 11h4" strokeLinecap="round" />
-    </svg>
-  );
-}
-function CheckGlyph() {
-  return (
-    <svg viewBox="0 0 16 16" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="8" r="6.2" />
-      <path d="M5.4 8.2l1.8 1.8L11 6.2" />
-    </svg>
+      <span className="whitespace-nowrap text-[clamp(8px,2.7cqw,14px)] font-medium leading-[1.2] text-[#515151]">{label}</span>
+    </motion.div>
   );
 }

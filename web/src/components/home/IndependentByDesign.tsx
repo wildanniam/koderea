@@ -14,6 +14,7 @@ type TextTile = {
   body: string;
   gridClass: string;
   cornerClass: string;
+  titleClass: string;
 };
 
 type VisualTile = {
@@ -35,7 +36,8 @@ const tiles: Tile[] = [
     title: "Independent Assessment",
     body: "Vendor-agnostic evaluation designed to preserve objectivity throughout the assurance process.",
     gridClass: "md:col-start-1 md:row-start-1",
-    cornerClass: "md:rounded-tl-[12px]",
+    cornerClass: "md:rounded-br-[12px] md:rounded-tr-[12px]",
+    titleClass: "md:max-w-[225px]",
   },
   {
     kind: "visual",
@@ -43,7 +45,7 @@ const tiles: Tile[] = [
     render: () => <IndependentAssessmentVisual />,
     aspectClass: "aspect-[522/306]",
     gridClass: "md:col-start-2 md:row-start-1",
-    cornerClass: "md:rounded-tr-[12px]",
+    cornerClass: "md:rounded-bl-[12px] md:rounded-tl-[12px]",
   },
   {
     kind: "text",
@@ -57,7 +59,8 @@ const tiles: Tile[] = [
     ),
     body: "AI systems are evaluated against local data and institutional requirements while aligned with recognized global frameworks.",
     gridClass: "md:col-start-2 md:row-start-2",
-    cornerClass: "",
+    cornerClass: "md:rounded-bl-[12px] md:rounded-tl-[12px]",
+    titleClass: "md:max-w-[243px]",
   },
   {
     kind: "visual",
@@ -65,7 +68,7 @@ const tiles: Tile[] = [
     render: () => <LocalStandardsVisual />,
     aspectClass: "aspect-[522/330]",
     gridClass: "md:col-start-1 md:row-start-2",
-    cornerClass: "",
+    cornerClass: "md:rounded-br-[12px] md:rounded-tr-[12px]",
   },
   {
     kind: "text",
@@ -79,7 +82,8 @@ const tiles: Tile[] = [
     ),
     body: "Transparent testing and traceable findings provide a defensible basis for AI deployment decisions.",
     gridClass: "md:col-start-1 md:row-start-3",
-    cornerClass: "md:rounded-bl-[12px]",
+    cornerClass: "md:rounded-br-[12px] md:rounded-tr-[12px]",
+    titleClass: "md:max-w-[230px]",
   },
   {
     kind: "visual",
@@ -87,7 +91,7 @@ const tiles: Tile[] = [
     render: () => <EvidenceDeploymentVisual />,
     aspectClass: "aspect-[522/306]",
     gridClass: "md:col-start-2 md:row-start-3",
-    cornerClass: "md:rounded-br-[12px]",
+    cornerClass: "md:rounded-[12px]",
   },
 ];
 
@@ -140,27 +144,27 @@ export function IndependentByDesign() {
           </h2>
           <p
             data-ibd-head
-            className="mt-6 max-w-[42ch] text-lg leading-[1.5] tracking-[-0.02em] text-[#E6E6E6] md:text-[20px]"
+            className="mt-5 max-w-[755px] text-lg leading-[1.5] tracking-[-0.02em] text-[#ADADAD] md:text-[20px]"
           >
             Objective, locally grounded assurance for deployment decisions backed
             by evidence
           </p>
         </header>
 
-        <div className="mt-16 overflow-hidden rounded-[12px] md:mt-[100px]">
+        <div className="mt-16 md:mt-[100px]">
           <div className="flex flex-col gap-px bg-[#333333] md:grid md:grid-cols-2 md:grid-rows-[306px_330px_306px]">
             {tiles.map((tile, i) =>
               tile.kind === "text" ? (
                 <article
                   key={i}
                   data-ibd-tile
-                  className={`flex flex-col justify-start bg-[#010101] p-6 md:p-10 ${tile.gridClass} ${tile.cornerClass}`}
+                  className={`flex flex-col justify-start overflow-hidden bg-[#010101] p-6 md:p-10 ${tile.gridClass} ${tile.cornerClass}`}
                 >
-                  <span className="text-[22px] font-semibold leading-[1.2] text-[#FDFDFD] md:text-[28px]">
+                  <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em] text-[#E6E6E6] md:text-[28px]">
                     {tile.number}
                   </span>
                   <div className="mt-10 md:mt-[60px]">
-                    <h3 className="text-[26px] font-semibold leading-[1.05] tracking-[-0.02em] text-[#FDFDFD] md:text-[32px] md:leading-[1]">
+                    <h3 className={`text-[26px] font-semibold leading-[1.05] tracking-[-0.02em] text-[#E6E6E6] md:text-[32px] md:leading-[1] ${tile.titleClass}`}>
                       {tile.title}
                     </h3>
                     <p className="mt-5 max-w-[42ch] text-[15px] leading-[1.5] tracking-[-0.02em] text-[#ADADAD] md:text-base">

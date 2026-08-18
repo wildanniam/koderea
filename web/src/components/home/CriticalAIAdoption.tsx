@@ -123,20 +123,25 @@ function SectorItem({
       className="flex max-w-[36ch] flex-col md:max-w-[321px] md:flex-1"
     >
       <motion.div
-        className="flex h-[60px] items-end"
+        className="relative flex items-end"
         tabIndex={0}
         whileHover={reduceMotion ? undefined : { y: -4, scale: 1.03 }}
         whileFocus={reduceMotion ? undefined : { y: -4, scale: 1.03 }}
         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        style={{ transformOrigin: "left bottom", width: sector.width, outline: "none" }}
+        style={{
+          transformOrigin: "left bottom",
+          width: sector.width,
+          height: sector.height,
+          outline: "none",
+        }}
       >
         <Image
           src={sector.icon}
           alt=""
           aria-hidden="true"
-          width={sector.width}
-          height={sector.height}
-          className="block select-none"
+          fill
+          sizes={`${Math.ceil(sector.width)}px`}
+          className="select-none object-contain object-bottom"
           draggable={false}
         />
       </motion.div>

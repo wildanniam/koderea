@@ -1,120 +1,112 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { VisualFrame } from "./VisualFrame";
+import { VisualFrame, assetUrl } from "./VisualFrame";
 
-const STROKE = "rgba(255,255,255,0.16)";
-const FAINT = "rgba(255,255,255,0.08)";
+const CANVAS_WIDTH = 522;
+const CANVAS_HEIGHT = 306;
 
-const dots = [95, 153, 211];
+type AssetProps = {
+  name: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  className?: string;
+};
 
-// Connector control points from each source dot toward the assurance core.
-const connectors = [
-  "M 62 95 C 150 95, 180 150, 296 152",
-  "M 62 153 L 296 153",
-  "M 62 211 C 150 211, 180 156, 296 154",
-];
+function Asset({ name, x, y, width, height, className = "" }: AssetProps) {
+  return (
+    <span
+      className={`absolute ${className}`}
+      style={{
+        left: `${(x / CANVAS_WIDTH) * 100}%`,
+        top: `${(y / CANVAS_HEIGHT) * 100}%`,
+        width: `${(width / CANVAS_WIDTH) * 100}%`,
+        height: `${(height / CANVAS_HEIGHT) * 100}%`,
+      }}
+    >
+      <Image src={assetUrl(name)} alt="" fill sizes={`${Math.ceil(width)}px`} className="object-fill" />
+    </span>
+  );
+}
 
-/**
- * Visual 01 — Independent Assessment.
- * Source dots -> connectors draw toward center -> core glow -> check confirms.
- */
+/** Figma node 248:9205, rebuilt from the exported vector layers. */
 export function IndependentAssessmentVisual() {
   const reduce = useReducedMotion();
-  const viewport = { once: true, amount: 0.4 } as const;
+  const transition = reduce ? { duration: 0 } : { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <>
-      <VisualFrame />
-      <svg
-        viewBox="0 0 522 306"
-        className="absolute inset-0 h-full w-full"
-        aria-hidden="true"
-        preserveAspectRatio="xMidYMid meet"
+      <VisualFrame style={{ background: "radial-gradient(circle at 47% 50%, #1a1a1a 0%, #0d0d0d 50%, #070707 75%, #010101 100%)" }} />
+
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={transition}
       >
-        {/* Connectors */}
-        {connectors.map((d, i) => (
-          <motion.path
-            key={d}
-            d={d}
-            fill="none"
-            stroke={STROKE}
-            strokeWidth={1}
-            strokeDasharray="4 5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={viewport}
-            transition={reduce ? { duration: 0 } : { duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-          />
-        ))}
+        <Asset name="ellipse47043.png" x={153.854} y={61.364} width={183.273} height={183.273} className="opacity-60" />
+        <Asset name="ellipse47042.png" x={176.764} y={84.273} width={137.455} height={137.455} className="opacity-75" />
+        <Asset name="ellipse47041.png" x={199.673} y={107.182} width={91.636} height={91.636} className="opacity-90" />
+        <Asset name="ellipse47044.svg" x={222.582} y={130.091} width={45.818} height={45.818} />
 
-        {/* Source dots */}
-        {dots.map((cy, i) => (
-          <g key={cy}>
-            <motion.circle
-              cx={50}
-              cy={cy}
-              r={11}
-              fill="rgba(217,217,217,0.10)"
-              stroke={FAINT}
-              strokeWidth={1}
-              initial={{ scale: 0.6, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={viewport}
-              transition={reduce ? { duration: 0 } : { duration: 0.5, delay: i * 0.1 }}
-              style={{ transformOrigin: `${50}px ${cy}px` }}
-            />
-            <circle cx={50} cy={cy} r={3.4} fill="rgba(255,255,255,0.55)" />
-          </g>
-        ))}
-
-        {/* Crosshair axes */}
-        <line x1="252" y1="153" x2="408" y2="153" stroke={FAINT} strokeWidth={1} strokeDasharray="3 5" />
-        <line x1="330" y1="80" x2="330" y2="226" stroke={FAINT} strokeWidth={1} strokeDasharray="3 5" />
-
-        {/* Concentric dashed rings */}
-        <circle cx="330" cy="153" r="70" fill="none" stroke={STROKE} strokeWidth="1" strokeDasharray="3 6" />
-        <circle cx="330" cy="153" r="48" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1" strokeDasharray="3 6" />
-
-        {/* Core glow */}
-        <motion.circle
-          cx="330"
-          cy="153"
-          r="30"
-          fill="url(#coreGlow)"
-          initial={{ scale: 0.4, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={viewport}
-          transition={reduce ? { duration: 0 } : { duration: 0.7, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ transformOrigin: "330px 153px" }}
+        <Asset name="vector1194233964.svg" x={245} y={43} width={0.981} height={220.981} />
+        <span
+          className="absolute bg-white/10"
+          style={{
+            left: `${(135 / CANVAS_WIDTH) * 100}%`,
+            top: `${(152.75 / CANVAS_HEIGHT) * 100}%`,
+            width: `${(220.981 / CANVAS_WIDTH) * 100}%`,
+            height: "1px",
+          }}
         />
-        <circle cx="330" cy="153" r="6" fill="#BFDBFE" />
 
-        {/* Check node */}
-        <g>
-          <circle cx="462" cy="153" r="30" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
-          <motion.path
-            d="M 450 153 l 8 8 l 16 -18"
+        <div
+          className="absolute inset-0"
+        >
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 size-full"
+            viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`}
             fill="none"
-            stroke="#FDFDFD"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={viewport}
-            transition={reduce ? { duration: 0 } : { duration: 0.4, delay: 1.05 }}
-          />
-        </g>
+            preserveAspectRatio="none"
+          >
+            <path d="M53.1 79.7 158.4 125.5" />
+            <path d="M56.6 153 125.3 153" />
+            <path d="M52.5 222.3 160.2 179.9" />
+            <style>{`path{stroke:rgba(255,255,255,.3);stroke-width:1.15;stroke-linecap:round;stroke-dasharray:4.58 4.58}`}</style>
+          </svg>
+        </div>
 
-        <defs>
-          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.95" />
-            <stop offset="45%" stopColor="#3B82F6" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#1D4ED8" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-      </svg>
+        {[61.364, 139.255, 213.709].map((y, index) => (
+          <motion.div
+            key={y}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 0.65 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.35, delay: 0.1 + index * 0.1 }}
+            style={{ transformOrigin: `${(41 / CANVAS_WIDTH) * 100}% ${(y + 11.45) / CANVAS_HEIGHT * 100}%` }}
+          >
+            <Asset name="ellipse47045.svg" x={index === 0 ? 30.145 : 29} y={y} width={22.909} height={22.909} />
+          </motion.div>
+        ))}
+
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 0.82 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformOrigin: `${(435.64 / CANVAS_WIDTH) * 100}% ${(153 / CANVAS_HEIGHT) * 100}%` }}
+        >
+          <Asset name="group.svg" x={387.909} y={105.273} width={95.455} height={95.455} />
+          <Asset name="group1.svg" x={412.727} y={130.091} width={45.818} height={45.818} />
+        </motion.div>
+      </motion.div>
     </>
   );
 }
