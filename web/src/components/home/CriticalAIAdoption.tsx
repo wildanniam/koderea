@@ -46,21 +46,22 @@ export function CriticalAIAdoption() {
     const heading = section.querySelectorAll<HTMLElement>("[data-cai-head]");
     const items = section.querySelectorAll<HTMLElement>("[data-cai-item]");
 
-    gsap.set(heading, { opacity: 0, y: 24 });
-    gsap.set(items, { opacity: 0, y: 24 });
-
-    return () => {
-      const tl = gsap.timeline();
-      tl.to(heading, {
-        opacity: 1,
+    const tl = gsap.timeline();
+    tl.fromTo(
+      heading,
+      { autoAlpha: 0, y: 24 },
+      {
+        autoAlpha: 1,
         y: 0,
         duration: 0.7,
         ease: "power3.out",
         stagger: 0.12,
-      }).to(
+      },
+    ).fromTo(
         items,
+        { autoAlpha: 0, y: 24 },
         {
-          opacity: 1,
+          autoAlpha: 1,
           y: 0,
           duration: 0.6,
           ease: "power3.out",
@@ -68,7 +69,6 @@ export function CriticalAIAdoption() {
         },
         "-=0.25",
       );
-    };
   });
 
   return (
@@ -137,6 +137,7 @@ function SectorItem({
           width={sector.width}
           height={sector.height}
           className="block h-auto w-full select-none"
+          style={{ width: "100%", height: "auto" }}
           draggable={false}
         />
       </motion.div>

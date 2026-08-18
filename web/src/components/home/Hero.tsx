@@ -24,6 +24,32 @@ export function Hero() {
 
     const media = gsap.matchMedia();
 
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const intro = gsap.timeline({
+        defaults: { ease: "power4.out" },
+      });
+
+      intro
+        .fromTo(
+          "[data-hero-intro='heading']",
+          { autoAlpha: 0, y: 24, filter: "blur(10px)" },
+          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+          0.08,
+        )
+        .fromTo(
+          "[data-hero-intro='copy']",
+          { autoAlpha: 0, y: 18, filter: "blur(7px)" },
+          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.75 },
+          0.2,
+        )
+        .fromTo(
+          "[data-hero-intro='cta']",
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.65 },
+          0.34,
+        );
+    });
+
     media.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
       let snapTween: gsap.core.Tween | null = null;
       let hasSnapped = false;
@@ -141,37 +167,27 @@ export function Hero() {
           data-hero-content
           className="relative z-10 mx-auto flex w-full max-w-[42rem] flex-col items-center self-center pb-24 md:pb-28"
         >
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 24, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-          >
+          <div data-hero-intro="heading">
             <h1 className="text-[clamp(3rem,5vw,4.25rem)] font-medium leading-[1.1] tracking-[-0.04em] text-[#1d1d1d]">
               <span className="block">AI Claims are Easy.</span>
               <span className="block">Evidence is Harder.</span>
             </h1>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 18, filter: "blur(7px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          >
+          <div data-hero-intro="copy">
             <p className="mt-5 max-w-[33rem] text-base font-normal leading-[1.5] text-slate-700">
               Koderea turns AI claims into validated evidence through independent testing,
               local-context evaluation, and structured assurance.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.a
+          <a
             href="#contact"
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
+            data-hero-intro="cta"
             className="brand-button mt-7 inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-medium leading-[1.2] tracking-[-0.02em] text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-700"
           >
             Start consultation
-          </motion.a>
+          </a>
         </div>
 
         <div

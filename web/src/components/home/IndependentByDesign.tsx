@@ -98,21 +98,22 @@ export function IndependentByDesign() {
     const heads = section.querySelectorAll<HTMLElement>("[data-ibd-head]");
     const cells = section.querySelectorAll<HTMLElement>("[data-ibd-tile]");
 
-    gsap.set(heads, { opacity: 0, y: 24 });
-    gsap.set(cells, { opacity: 0, y: 28 });
-
-    return () => {
-      const tl = gsap.timeline();
-      tl.to(heads, {
-        opacity: 1,
+    const tl = gsap.timeline();
+    tl.fromTo(
+      heads,
+      { autoAlpha: 0, y: 24 },
+      {
+        autoAlpha: 1,
         y: 0,
         duration: 0.7,
         ease: "power3.out",
         stagger: 0.12,
-      }).to(
+      },
+    ).fromTo(
         cells,
+        { autoAlpha: 0, y: 28 },
         {
-          opacity: 1,
+          autoAlpha: 1,
           y: 0,
           duration: 0.75,
           ease: "power3.out",
@@ -120,7 +121,6 @@ export function IndependentByDesign() {
         },
         "-=0.2",
       );
-    };
   });
 
   return (
