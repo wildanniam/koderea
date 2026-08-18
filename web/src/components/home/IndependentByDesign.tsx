@@ -2,15 +2,10 @@
 
 import { useRef, type ReactNode } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRevealTimeline } from "./useRevealTimeline";
 import { IndependentAssessmentVisual } from "./independent-by-design/IndependentAssessmentVisual";
 import { LocalStandardsVisual } from "./independent-by-design/LocalStandardsVisual";
 import { EvidenceDeploymentVisual } from "./independent-by-design/EvidenceDeploymentVisual";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
 
 type TextTile = {
   kind: "text";
@@ -99,52 +94,34 @@ const tiles: Tile[] = [
 export function IndependentByDesign() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      if (!section) return;
+  useRevealTimeline(sectionRef, (section) => {
+    const heads = section.querySelectorAll<HTMLElement>("[data-ibd-head]");
+    const cells = section.querySelectorAll<HTMLElement>("[data-ibd-tile]");
 
-      const media = gsap.matchMedia();
+    gsap.set(heads, { opacity: 0, y: 24 });
+    gsap.set(cells, { opacity: 0, y: 28 });
 
-      media.add("(prefers-reduced-motion: no-preference)", () => {
-        const heads = section.querySelectorAll<HTMLElement>("[data-ibd-head]");
-        const cells = section.querySelectorAll<HTMLElement>("[data-ibd-tile]");
-
-        gsap.set(heads, { opacity: 0, y: 24 });
-        gsap.set(cells, { opacity: 0, y: 28 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: section, start: "top 70%", once: true },
-        });
-
-        tl.to(heads, {
+    return () => {
+      const tl = gsap.timeline();
+      tl.to(heads, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.12,
+      }).to(
+        cells,
+        {
           opacity: 1,
           y: 0,
-          duration: 0.7,
+          duration: 0.75,
           ease: "power3.out",
           stagger: 0.12,
-        }).to(
-          cells,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            ease: "power3.out",
-            stagger: 0.12,
-          },
-          "-=0.2",
-        );
-
-        return () => {
-          tl.scrollTrigger?.kill();
-          tl.kill();
-        };
-      });
-
-      return () => media.revert();
-    },
-    { scope: sectionRef },
-  );
+        },
+        "-=0.2",
+      );
+    };
+  });
 
   return (
     <section

@@ -4,12 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
+import { useRevealTimeline } from "./useRevealTimeline";
 
 type Sector = {
   label: string;
@@ -47,56 +42,34 @@ export function CriticalAIAdoption() {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      if (!section) return;
+  useRevealTimeline(sectionRef, (section) => {
+    const heading = section.querySelectorAll<HTMLElement>("[data-cai-head]");
+    const items = section.querySelectorAll<HTMLElement>("[data-cai-item]");
 
-      const media = gsap.matchMedia();
+    gsap.set(heading, { opacity: 0, y: 24 });
+    gsap.set(items, { opacity: 0, y: 24 });
 
-      media.add("(prefers-reduced-motion: no-preference)", () => {
-        const heading = section.querySelectorAll<HTMLElement>("[data-cai-head]");
-        const items = section.querySelectorAll<HTMLElement>("[data-cai-item]");
-
-        gsap.set(heading, { opacity: 0, y: 24 });
-        gsap.set(items, { opacity: 0, y: 24 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top 72%",
-            once: true,
-          },
-        });
-
-        tl.to(heading, {
+    return () => {
+      const tl = gsap.timeline();
+      tl.to(heading, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.12,
+      }).to(
+        items,
+        {
           opacity: 1,
           y: 0,
-          duration: 0.7,
+          duration: 0.6,
           ease: "power3.out",
-          stagger: 0.12,
-        }).to(
-          items,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power3.out",
-            stagger: 0.1,
-          },
-          "-=0.25",
-        );
-
-        return () => {
-          tl.scrollTrigger?.kill();
-          tl.kill();
-        };
-      });
-
-      return () => media.revert();
-    },
-    { scope: sectionRef },
-  );
+          stagger: 0.1,
+        },
+        "-=0.25",
+      );
+    };
+  });
 
   return (
     <section
