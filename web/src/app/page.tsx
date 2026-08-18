@@ -2,6 +2,8 @@ import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/home/Hero";
 import { AssuranceBridge } from "@/components/home/AssuranceBridge";
 import { AssuranceNarrative } from "@/components/home/AssuranceNarrative";
+import { CriticalAIAdoption } from "@/components/home/CriticalAIAdoption";
+import { IndependentByDesign } from "@/components/home/IndependentByDesign";
 import { Authority } from "@/components/home/Authority";
 import { AcademyWaitlist } from "@/components/home/AcademyWaitlist";
 import { ContactCTA } from "@/components/home/ContactCTA";
@@ -21,6 +23,8 @@ export default function Home() {
         <Hero />
         <AssuranceNarrative />
         <AssuranceBridge />
+        <CriticalAIAdoption />
+        <IndependentByDesign />
         <Authority />
         <AcademyWaitlist />
         <ContactCTA />
