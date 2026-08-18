@@ -74,10 +74,20 @@ export function IndependentAssessmentVisual() {
             fill="none"
             preserveAspectRatio="none"
           >
-            <path d="M53.1 79.7 158.4 125.5" />
-            <path d="M56.6 153 125.3 153" />
-            <path d="M52.5 222.3 160.2 179.9" />
-            <style>{`path{stroke:rgba(255,255,255,.3);stroke-width:1.15;stroke-linecap:round;stroke-dasharray:4.58 4.58}`}</style>
+            {[
+              "M53.1 79.7 158.4 125.5",
+              "M56.6 153 125.3 153",
+              "M52.5 222.3 160.2 179.9",
+            ].map((path) => (
+              <path
+                key={path}
+                d={path}
+                stroke="rgba(255,255,255,0.3)"
+                strokeWidth="1.15"
+                strokeLinecap="round"
+                strokeDasharray="4.58 4.58"
+              />
+            ))}
           </svg>
         </div>
 
