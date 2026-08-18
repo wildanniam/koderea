@@ -21,11 +21,11 @@ const vendorItems = [
 ] as const;
 
 const controls = [
-  { label: "Monitoring & Feedback", icon: "monitoring.svg", className: "left-[41.08%] top-[15.83%] w-[5.67%]" },
-  { label: "Risk & Controls", icon: "risk.svg", className: "left-[51.17%] top-[15.3%] w-[7.04%]" },
-  { label: "Explainability", icon: "explainability.svg", className: "left-[33.75%] top-[42.26%] w-[6.71%]" },
-  { label: "Policy & Standards", icon: "policy.svg", className: "left-[57.5%] top-[42.26%] w-[8.72%]" },
-  { label: "Fairness / Bias Checks", icon: "fairness.svg", className: "left-[45.67%] top-[65.57%] w-[6.96%]" },
+  { label: "Monitoring & Feedback", lines: ["Monitoring", "& Feedback"], icon: "monitoring.svg", className: "left-[37.75%] top-[8.7%] w-[10.5%]" },
+  { label: "Risk & Controls", lines: ["Risk &", "Controls"], icon: "risk.svg", className: "left-[51.55%] top-[8.7%] w-[10.5%]" },
+  { label: "Explainability", lines: ["Explainability"], icon: "explainability.svg", className: "left-[27%] top-[39.1%] w-[10.5%]" },
+  { label: "Policy & Standards", lines: ["Policy & Standards"], icon: "policy.svg", className: "left-[61.6%] top-[39.1%] w-[13.5%]" },
+  { label: "Fairness / Bias Checks", lines: ["Fairness / Bias", "Checks"], icon: "fairness.svg", className: "left-[43.85%] top-[69.5%] w-[12%]" },
 ] as const;
 
 const validationItems = ["Performance", "Fairness", "Risk", "Compliance", "Readiness"];
@@ -456,7 +456,7 @@ export function AssuranceBridge() {
 
               <motion.span
                 aria-hidden="true"
-                className="absolute left-[36.45%] top-[21.26%] z-[2] aspect-square w-[25.15%]"
+                className="absolute left-[34.05%] top-[17.35%] z-[2] aspect-square w-[30.8%]"
                 initial={false}
                 animate={
                   coreIsActive && !shouldReduceMotion
@@ -465,25 +465,29 @@ export function AssuranceBridge() {
                 }
                 transition={{ duration: introRunning ? 0.8 : 0.55, delay: introRunning ? 0.62 : 0, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Image src="/bridging/lines/assurance-rings.svg" alt="" fill sizes="302px" loading="eager" unoptimized />
+                <Image src="/bridging/lines/assurance-rings.svg" alt="" fill sizes="370px" loading="eager" unoptimized />
               </motion.span>
 
               <motion.div
-                className="absolute left-[41.99%] top-[32.7%] z-10 aspect-square w-[14.09%] text-center"
+                className="absolute left-[39.95%] top-[29.2%] z-10 aspect-square w-[19%] rounded-full bg-[#fafafa] text-center shadow-[inset_0_14px_30px_rgba(58,68,85,0.055),0_10px_30px_rgba(58,68,85,0.07)]"
                 initial={false}
                 animate={
                   coreIsActive && !shouldReduceMotion
-                    ? { scale: [1, 1.04, 1], filter: "drop-shadow(0px 12px 24px rgba(58,68,85,0.12))" }
-                    : { scale: 1, filter: "drop-shadow(0px 0px 0px rgba(58,68,85,0))" }
+                    ? { scale: [1, 1.04, 1], filter: "drop-shadow(0px 13px 26px rgba(58,68,85,0.1))" }
+                    : { scale: 1, filter: "drop-shadow(0px 5px 12px rgba(58,68,85,0.035))" }
                 }
                 transition={{ duration: introRunning ? 0.72 : 0.5, delay: introRunning ? 0.68 : 0, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Image src="/bridging/lines/core-surface.svg" alt="" fill sizes="170px" loading="eager" unoptimized />
-                <span className="absolute left-[27.3%] top-[17.7%] h-[35.7%] w-[44.4%]">
-                  <Image src="/bridging/icons/assurance-mark.svg" alt="" fill sizes="75px" loading="eager" unoptimized />
+                <Image src="/bridging/lines/core-surface.svg" alt="" fill sizes="228px" loading="eager" unoptimized />
+                <span className="absolute left-[30%] top-[17%] h-[35%] w-[40%]">
+                  <Image src="/bridging/icons/assurance-mark.svg" alt="" fill sizes="92px" loading="eager" unoptimized />
                 </span>
-                <p className="absolute inset-x-[24%] top-[59.7%] text-[14px] font-medium leading-[1.05] text-[#515151]">
-                  Independent Assurance Layer
+                <p className="absolute inset-x-[22%] top-[58.5%] text-[17px] font-medium leading-[1.05] tracking-[-0.02em] text-[#515151]">
+                  Independent
+                  <br />
+                  Assurance
+                  <br />
+                  Layer
                 </p>
               </motion.div>
 
@@ -528,13 +532,17 @@ export function AssuranceBridge() {
                     delay: introRunning ? 0.76 + controls.indexOf(control) * 0.08 : 0,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className={`${control.className} absolute z-20 flex flex-col items-center gap-2 text-center outline-none focus-visible:ring-2 focus-visible:ring-slate-300`}
+                  className={`${control.className} absolute z-20 flex flex-col items-center gap-2.5 text-center outline-none focus-visible:ring-2 focus-visible:ring-slate-300`}
                 >
-                  <span className="flex size-12 items-center justify-center rounded-full border border-[#e6e6e6] bg-white shadow-[0_3px_10px_rgba(30,37,48,0.04)] transition-[transform,box-shadow] duration-300 hover:scale-[1.04] hover:shadow-[0_10px_24px_rgba(30,37,48,0.1)]">
-                    <AssetIcon name={control.icon} size={29} />
+                  <span className="flex size-16 items-center justify-center rounded-full border-[1.5px] border-[#e4e4e4] bg-white shadow-[0_4px_12px_rgba(30,37,48,0.045)] transition-[transform,box-shadow] duration-300 hover:scale-[1.04] hover:shadow-[0_12px_26px_rgba(30,37,48,0.1)]">
+                    <AssetIcon name={control.icon} size={37} />
                   </span>
-                  <span className="relative z-10 rounded-[4px] bg-[#fafafa] px-1.5 py-0.5 text-[12px] font-medium leading-[1.1] text-[#515151] shadow-[0_0_0_3px_#fafafa]">
-                    {control.label}
+                  <span className="relative z-10 rounded-[5px] bg-[#fafafa] px-2 py-0.5 text-[15px] font-medium leading-[1.08] tracking-[-0.015em] text-[#515151] shadow-[0_0_0_4px_#fafafa]">
+                    {control.lines.map((line) => (
+                      <span key={line} className="block whitespace-nowrap">
+                        {line}
+                      </span>
+                    ))}
                   </span>
                 </motion.div>
               ))}
