@@ -4,9 +4,6 @@ import { AssuranceBridge } from "@/components/home/AssuranceBridge";
 import { AssuranceNarrative } from "@/components/home/AssuranceNarrative";
 import { CriticalAIAdoption } from "@/components/home/CriticalAIAdoption";
 import { IndependentByDesign } from "@/components/home/IndependentByDesign";
-import { Authority } from "@/components/home/Authority";
-import { AcademyWaitlist } from "@/components/home/AcademyWaitlist";
-import { ContactCTA } from "@/components/home/ContactCTA";
 import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
@@ -25,9 +22,6 @@ export default function Home() {
         <AssuranceBridge />
         <CriticalAIAdoption />
         <IndependentByDesign />
-        <Authority />
-        <AcademyWaitlist />
-        <ContactCTA />
       </main>
       <Footer />
     </>
