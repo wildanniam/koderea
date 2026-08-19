@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="reicon:danger" clip-path="url(#clip0_0_85)">
+<path id="Vector" d="M8 5.99986V9.33319M7.99666 11.3332H8.00266M8 14.2732H3.96C1.64666 14.2732 0.679996 12.6199 1.8 10.5999L3.88 6.85319L5.84 3.33319C7.02666 1.19319 8.97333 1.19319 10.16 3.33319L12.12 6.85986L14.2 10.6065C15.32 12.6265 14.3467 14.2799 12.04 14.2799H8V14.2732Z" stroke="#515151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_85">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
