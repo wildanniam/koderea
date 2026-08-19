@@ -47,7 +47,7 @@ function FooterGroup({
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#F3F3F4] bg-[#FDFDFD] px-6 pb-10 pt-12 text-sm leading-[1.1] md:px-10 md:pb-4 md:pt-[60px]">
+    <footer className="border-t border-[#F3F3F4] bg-[#FDFDFD] px-6 pb-10 pt-12 text-sm leading-[1.1] md:px-10 md:pb-10 md:pt-[60px]">
       <div className="mx-auto flex max-w-[1360px] flex-col gap-12 md:min-h-[100px] md:flex-row md:items-end md:justify-between md:gap-10">
         <div className="flex shrink-0 flex-col items-start gap-[43px]">
           <Link
