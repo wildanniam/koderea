@@ -33,7 +33,7 @@ function Asset({ name, x, y, width, height, className = "" }: AssetProps) {
 }
 
 /** Figma node 248:9205, rebuilt from the exported vector layers. */
-export function IndependentAssessmentVisual() {
+export function IndependentAssessmentVisual({ active = false }: { active?: boolean }) {
   const reduce = useReducedMotion();
   const transition = reduce ? { duration: 0 } : { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
@@ -78,14 +78,17 @@ export function IndependentAssessmentVisual() {
               "M53.1 79.7 158.4 125.5",
               "M56.6 153 125.3 153",
               "M52.5 222.3 160.2 179.9",
-            ].map((path) => (
-              <path
+            ].map((path, index) => (
+              <motion.path
                 key={path}
                 d={path}
                 stroke="rgba(255,255,255,0.3)"
                 strokeWidth="1.15"
                 strokeLinecap="round"
                 strokeDasharray="4.58 4.58"
+                strokeDashoffset={0}
+                animate={active && !reduce ? { strokeDashoffset: [0, -18.32], opacity: [0.35, 0.85, 0.35] } : { strokeDashoffset: 0, opacity: 0.45 }}
+                transition={active && !reduce ? { duration: 1.25, delay: index * 0.1, repeat: Infinity, ease: "linear" } : { duration: 0.35 }}
               />
             ))}
           </svg>
@@ -113,8 +116,15 @@ export function IndependentAssessmentVisual() {
           transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
           style={{ transformOrigin: `${(435.64 / CANVAS_WIDTH) * 100}% ${(153 / CANVAS_HEIGHT) * 100}%` }}
         >
-          <Asset name="group.svg" x={387.909} y={105.273} width={95.455} height={95.455} />
-          <Asset name="group1.svg" x={412.727} y={130.091} width={45.818} height={45.818} />
+          <motion.div
+            className="absolute inset-0"
+            animate={active && !reduce ? { scale: [1, 1.055, 1], filter: ["brightness(1)", "brightness(1.35)", "brightness(1)"] } : { scale: 1, filter: "brightness(1)" }}
+            transition={active && !reduce ? { duration: 1.8, repeat: Infinity, ease: "easeInOut" } : { duration: 0.35 }}
+            style={{ transformOrigin: `${(435.64 / CANVAS_WIDTH) * 100}% ${(153 / CANVAS_HEIGHT) * 100}%` }}
+          >
+            <Asset name="group.svg" x={387.909} y={105.273} width={95.455} height={95.455} />
+            <Asset name="group1.svg" x={412.727} y={130.091} width={45.818} height={45.818} />
+          </motion.div>
         </motion.div>
       </motion.div>
     </>

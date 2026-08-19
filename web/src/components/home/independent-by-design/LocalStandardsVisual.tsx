@@ -42,7 +42,7 @@ function PctAsset({ name, x, y, width, height, className = "" }: { name: string;
   );
 }
 
-export function LocalStandardsVisual() {
+export function LocalStandardsVisual({ active = false }: { active?: boolean }) {
   const reduce = useReducedMotion();
 
   return (
@@ -55,6 +55,8 @@ export function LocalStandardsVisual() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.45 }}
         transition={reduce ? { duration: 0 } : { duration: 0.45 }}
+        animate={active && !reduce ? { filter: "brightness(1.22)", scale: 1.008 } : { filter: "brightness(1)", scale: 1 }}
+        style={{ transformOrigin: "50% 50%" }}
       >
         <motion.div
           className="absolute inset-0"
@@ -96,18 +98,24 @@ export function LocalStandardsVisual() {
         ))}
 
         <motion.div
-          className="absolute flex items-center rounded-full border border-[#D9D9D9]/40 bg-[#010101] p-[0.74%] shadow-[0_18px_16px_rgba(0,0,0,0.5)]"
+          className="absolute"
           style={{ left: `${225 / W * 100}%`, top: `${129 / H * 100}%`, width: `${72 / W * 100}%`, aspectRatio: "1" }}
           initial={{ opacity: 0, scale: 0.72 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.45 }}
           transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex size-full items-center justify-center rounded-full border border-[#6E6E6E]/40 bg-gradient-to-b from-[#010101] from-20% to-[#6E6E6E] to-[210%]">
-            <span className="relative h-[50%] w-[43%]">
-              <Image src={assetUrl("icon-bare.svg")} alt="" fill sizes="28px" className="object-fill" />
-            </span>
-          </div>
+          <motion.div
+            className="flex size-full items-center rounded-full border border-[#D9D9D9]/40 bg-[#010101] p-[5.4%] shadow-[0_18px_16px_rgba(0,0,0,0.5)]"
+            animate={active && !reduce ? { scale: [1, 1.075, 1], boxShadow: ["0 18px 16px rgba(0,0,0,.5)", "0 18px 30px rgba(115,221,242,.18)", "0 18px 16px rgba(0,0,0,.5)"] } : { scale: 1, boxShadow: "0 18px 16px rgba(0,0,0,.5)" }}
+            transition={active && !reduce ? { duration: 1.7, repeat: Infinity, ease: "easeInOut" } : { duration: 0.35 }}
+          >
+            <div className="flex size-full items-center justify-center rounded-full border border-[#6E6E6E]/40 bg-gradient-to-b from-[#010101] from-20% to-[#6E6E6E] to-[210%]">
+              <span className="relative h-[50%] w-[43%]">
+                <Image src={assetUrl("icon-bare.svg")} alt="" fill sizes="28px" className="object-fill" />
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
 
         <div

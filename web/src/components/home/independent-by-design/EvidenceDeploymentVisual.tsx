@@ -20,7 +20,7 @@ function Asset({ name, x, y, width, height, className = "" }: AssetProps) {
   );
 }
 
-export function EvidenceDeploymentVisual() {
+export function EvidenceDeploymentVisual({ active = false }: { active?: boolean }) {
   const reduce = useReducedMotion();
 
   return (
@@ -39,10 +39,17 @@ export function EvidenceDeploymentVisual() {
         >
           <Asset name="vector1194233960.svg" x={195} y={59} width={43.75} height={192.5} />
           <Asset name="vector1194233961.svg" x={198} y={147.5} width={132.75} height={11.046} />
+          <motion.span
+            aria-hidden="true"
+            className="absolute size-[6px] rounded-full bg-[#73DDF2] shadow-[0_0_12px_3px_rgba(115,221,242,0.55)]"
+            style={{ top: `${153 / H * 100}%` }}
+            animate={active && !reduce ? { left: ["38%", "63%"], opacity: [0, 1, 1, 0] } : { left: "38%", opacity: 0 }}
+            transition={active && !reduce ? { duration: 1.45, repeat: Infinity, ease: "easeInOut" } : { duration: 0.25 }}
+          />
         </div>
 
         {[27, 111, 195].map((top, index) => (
-          <EvidenceCard key={top} top={top} index={index} reduce={Boolean(reduce)} />
+          <EvidenceCard key={top} top={top} index={index} reduce={Boolean(reduce)} active={active} />
         ))}
 
         <motion.div
@@ -52,6 +59,7 @@ export function EvidenceDeploymentVisual() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.45 }}
           transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.86, ease: [0.22, 1, 0.36, 1] }}
+          animate={{ boxShadow: active ? "0 20px 50px rgba(115,221,242,.14)" : "0 18px 40px rgba(0,0,0,.4)" }}
         >
           <span className="absolute left-1/2 top-[8.33%] h-[16.67%] w-[25%] -translate-x-1/2">
             <Image src={assetUrl("group8.svg")} alt="" fill sizes="40px" className="object-contain" />
@@ -80,7 +88,7 @@ export function EvidenceDeploymentVisual() {
   );
 }
 
-function EvidenceCard({ top, index, reduce }: { top: number; index: number; reduce: boolean }) {
+function EvidenceCard({ top, index, reduce, active }: { top: number; index: number; reduce: boolean; active: boolean }) {
   return (
     <motion.div
       className="absolute rounded-[12px] border-2 border-[#73DDF2] bg-[#EEEEEE]/[0.05] backdrop-blur-[12px]"
@@ -89,6 +97,7 @@ function EvidenceCard({ top, index, reduce }: { top: number; index: number; redu
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.45 }}
       transition={reduce ? { duration: 0 } : { duration: 0.42, delay: 0.1 + index * 0.13, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ borderColor: active ? "rgba(115,221,242,1)" : "rgba(115,221,242,.65)" }}
     >
       <span className="absolute left-[7.32%] top-1/2 size-[61.11%] max-h-11 max-w-11 -translate-y-1/2">
         {index === 0 ? (
