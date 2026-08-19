@@ -336,7 +336,7 @@ export function AssuranceBridge() {
       ref={sectionRef}
       id="assurance-layer"
       aria-labelledby="assurance-layer-title"
-      className="scroll-mt-20 border-b border-slate-100 bg-paper py-24 md:px-10 md:py-[100px]"
+      className="scroll-mt-20 bg-paper py-24 md:px-10 md:py-[100px]"
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <header className="px-6 text-center md:px-0">

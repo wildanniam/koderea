@@ -119,7 +119,7 @@ export function AssuranceNarrative() {
     <section
       id="assurance"
       ref={containerRef}
-      className="relative overflow-x-clip border-y border-slate-100 bg-paper py-24 text-foreground md:py-0 md:motion-reduce:py-24"
+      className="relative overflow-x-clip bg-paper py-24 text-foreground md:py-0 md:motion-reduce:py-24"
     >
       <div
         ref={pinRef}
