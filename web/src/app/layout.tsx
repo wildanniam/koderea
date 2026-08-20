@@ -10,10 +10,35 @@ const rethinkSans = Rethink_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.koderea.id"),
   title: "Koderea - AI Assurance & Validation",
   description: "Koderea helps organizations adopt AI with evidence, clarity, and local context.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Koderea - AI Assurance & Validation",
+    description:
+      "Koderea helps organizations adopt AI with evidence, clarity, and local context.",
+    url: "/",
+    siteName: "Koderea",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Koderea - AI Assurance & Validation",
+    description:
+      "Koderea helps organizations adopt AI with evidence, clarity, and local context.",
+  },
   icons: {
-    icon: "/brand/icon-logo-koderea.svg",
+    icon: [
+      {
+        url: "/brand/icon-logo-koderea.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/brand/icon-logo-koderea.svg",
   },
 };
 
